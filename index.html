@@ -104,6 +104,7 @@
 <body>
 <div class="wrap">
 
+<!-- ══════════ INICIO ══════════ -->
 <section id="v-home" class="hide">
   <header>
     <h1>Ayuda</h1>
@@ -115,8 +116,8 @@
   <div id="avisoVieja" class="aviso hide"></div>
 
   <div class="quien">
-    <div class="nom" id="qNombre">-</div>
-    <div class="sub" id="qSub">-</div>
+    <div class="nom" id="qNombre">—</div>
+    <div class="sub" id="qSub">—</div>
   </div>
 
   <div class="presencia">
@@ -126,17 +127,17 @@
 
   <button class="big b-amb" onclick="llamarAmbulancia()">
     <span class="l1">AMBULANCIA</span>
-    <span class="l2" id="lAmb">-</span>
+    <span class="l2" id="lAmb">—</span>
   </button>
 
   <button class="big b-107" onclick="llamar107()">
-    <span class="l1">107 SAME</span>
-    <span class="l2">Emergencia publica. Gratuito, sin cobertura.</span>
+    <span class="l1">107 · SAME</span>
+    <span class="l2">Emergencia pública. Gratuito, sin cobertura.</span>
   </button>
 
   <button class="big b-fam" onclick="avisarFamilia(false)">
     <span class="l1">AVISAR FAMILIA</span>
-    <span class="l2" id="lFam">-</span>
+    <span class="l2" id="lFam">—</span>
   </button>
 
   <button class="big b-dat" onclick="ir('datos')">
@@ -144,9 +145,10 @@
     <span class="l2" id="lDat">Ficha para dictar al operador</span>
   </button>
 
-  <button class="b-falsa big" onclick="falsaAlarma()">Falsa alarma - avisar que ya esta</button>
+  <button class="b-falsa big" onclick="falsaAlarma()">Falsa alarma — avisar que ya está</button>
 </section>
 
+<!-- ══════════ DATOS / FICHA ══════════ -->
 <section id="v-datos" class="hide">
   <header>
     <h1 id="dTitulo">Ficha</h1>
@@ -160,7 +162,7 @@
   </div>
 
   <div class="card">
-    <h2 style="margin-top:0">Ficha medica</h2>
+    <h2 style="margin-top:0">Ficha médica</h2>
     <div id="fichaMed"></div>
   </div>
 
@@ -173,6 +175,7 @@
   <p class="tiny" id="dActualizado"></p>
 </section>
 
+<!-- ══════════ PERFILES ══════════ -->
 <section id="v-perfiles" class="hide">
   <header>
     <h1>Perfiles</h1>
@@ -183,16 +186,17 @@
   <button class="btn" id="btnNuevo" onclick="editar(null)">Agregar persona</button>
 
   <h2>Respaldo</h2>
-  <p class="muted">Los datos viven solo en este telefono. Si limpias Chrome o cambias de equipo, se pierden. Guarda una copia en Drive o mandatela por mail.</p>
+  <p class="muted">Los datos viven solo en este teléfono. Si limpiás Chrome o cambiás de equipo, se pierden. Guardá una copia en Drive o mandátela por mail.</p>
   <button class="btn sec" onclick="exportar()">Exportar copia</button>
   <button class="btn sec" onclick="document.getElementById('fImp').click()">Importar copia</button>
   <input type="file" id="fImp" accept=".json,application/json" class="hide" onchange="importar(this)">
 
   <h2>Ficha del sistema</h2>
-  <p class="muted">Lo unico visible con la pantalla bloqueada es la ficha nativa de Android: Ajustes &gt; Seguridad y emergencias &gt; Informacion medica, con "Mostrar con dispositivo bloqueado" activado. Copia tu texto y pegalo ahi.</p>
+  <p class="muted">Lo único visible con la pantalla bloqueada es la ficha nativa de Android: Ajustes &gt; Seguridad y emergencias &gt; Información médica, con "Mostrar con dispositivo bloqueado" activado. Copiá tu texto y pegalo ahí.</p>
   <button class="btn sec" onclick="copiarNativa()">Copiar mi ficha para el sistema</button>
 </section>
 
+<!-- ══════════ EDICIÓN ══════════ -->
 <section id="v-edit" class="hide">
   <header>
     <h1 id="eTitulo">Datos</h1>
@@ -208,55 +212,55 @@
       <div class="row"><label for="f_nac">Fecha de nacimiento</label>
         <input id="f_nac" type="date"></div>
     </div>
-    <div class="row"><label for="f_tel">Telefono de esta persona</label>
+    <div class="row"><label for="f_tel">Teléfono de esta persona</label>
       <input id="f_tel" type="tel" inputmode="tel" placeholder="5491122223333"></div>
     <div class="row"><label for="f_dom">Domicilio completo</label>
       <input id="f_dom" placeholder="Calle 1234, entre X e Y, Localidad"></div>
     <div class="row"><label for="f_ref">Referencias para llegar</label>
-      <input id="f_ref" placeholder="Barrio cerrado, piso, timbre, porton verde"></div>
+      <input id="f_ref" placeholder="Barrio cerrado, piso, timbre, portón verde"></div>
   </div>
 
   <div class="card">
     <h2 style="margin-top:0">Cobertura</h2>
     <div class="row"><label for="f_cob">Prepaga u obra social</label>
       <select id="f_cob" onchange="autoTelCobertura()"></select></div>
-    <div class="row"><label for="f_cobtel">Telefono de emergencias</label>
+    <div class="row"><label for="f_cobtel">Teléfono de emergencias</label>
       <input id="f_cobtel" type="tel" inputmode="tel"></div>
     <div class="grid2">
       <div class="row"><label for="f_plan">Plan</label><input id="f_plan"></div>
-      <div class="row"><label for="f_afi">N de afiliado</label><input id="f_afi"></div>
+      <div class="row"><label for="f_afi">N° de afiliado</label><input id="f_afi"></div>
     </div>
-    <p class="tiny">Galeno y Omint no traen numero precargado: el de emergencias cambia segun plan y zona. Copialo del dorso de la credencial.</p>
+    <p class="tiny">Galeno y Omint no traen número precargado: el de emergencias cambia según plan y zona. Copialo del dorso de la credencial.</p>
   </div>
 
   <div class="card">
     <h2 style="margin-top:0">Contactos a avisar</h2>
     <div id="editContactos"></div>
     <button class="btn sec" onclick="addContacto()">Agregar contacto</button>
-    <p class="tiny">Para que WhatsApp abra, el numero va con codigo de pais y sin el 15: 5491122223333.</p>
+    <p class="tiny">Para que WhatsApp abra, el número va con código de país y sin el 15: 5491122223333.</p>
   </div>
 
   <div class="card">
-    <h2 style="margin-top:0">Ficha medica</h2>
-    <p class="tiny" style="margin-top:0">Esto es lo que se le lee a quien atiende cuando la persona no puede responder. Si un campo no aplica, escribi "no".</p>
+    <h2 style="margin-top:0">Ficha médica</h2>
+    <p class="tiny" style="margin-top:0">Esto es lo que se le lee a quien atiende cuando la persona no puede responder. Si un campo no aplica, escribí "no".</p>
 
-    <div class="row"><label for="m_alergias">Alergias y tipo de reaccion</label>
+    <div class="row"><label for="m_alergias">Alergias y tipo de reacción</label>
       <textarea id="m_alergias" placeholder="Penicilina: anafilaxia. AINEs: rash. Sin alergias conocidas."></textarea></div>
 
-    <div class="row"><label for="m_medic">Medicacion actual: droga, dosis, frecuencia</label>
-      <textarea id="m_medic" placeholder="Enalapril 10 mg, 1 por dia. Metformina 850 mg, 2 por dia."></textarea></div>
+    <div class="row"><label for="m_medic">Medicación actual: droga, dosis, frecuencia</label>
+      <textarea id="m_medic" placeholder="Enalapril 10 mg, 1 por día. Metformina 850 mg, 2 por día."></textarea></div>
 
-    <div class="row"><label for="m_criticos">Medicacion critica</label>
-      <textarea id="m_criticos" placeholder="Anticoagulantes, antiagregantes, insulina, betabloqueantes, corticoides cronicos. Escribi cual y desde cuando."></textarea></div>
+    <div class="row"><label for="m_criticos">Medicación crítica</label>
+      <textarea id="m_criticos" placeholder="Anticoagulantes, antiagregantes, insulina, betabloqueantes, corticoides crónicos. Escribí cuál y desde cuándo."></textarea></div>
 
-    <div class="row"><label for="m_cronicas">Patologias cronicas</label>
-      <textarea id="m_cronicas" placeholder="Diabetes tipo 2. HTA. Epilepsia. EPOC. ACV en 2019. Dialisis martes y viernes."></textarea></div>
+    <div class="row"><label for="m_cronicas">Patologías crónicas</label>
+      <textarea id="m_cronicas" placeholder="Diabetes tipo 2. HTA. Epilepsia. EPOC. ACV en 2019. Diálisis martes y viernes."></textarea></div>
 
-    <div class="row"><label for="m_disp">Dispositivos implantados y cirugias mayores</label>
-      <textarea id="m_disp" placeholder="Marcapasos bicameral 2021. Stent coronario. Protesis de cadera."></textarea></div>
+    <div class="row"><label for="m_disp">Dispositivos implantados y cirugías mayores</label>
+      <textarea id="m_disp" placeholder="Marcapasos bicameral 2021. Stent coronario. Prótesis de cadera."></textarea></div>
 
     <div class="grid2">
-      <div class="row"><label for="m_sangre">Grupo sanguineo</label>
+      <div class="row"><label for="m_sangre">Grupo sanguíneo</label>
         <select id="m_sangre">
           <option value="">Sin dato</option><option>0-</option><option>0+</option>
           <option>A-</option><option>A+</option><option>B-</option><option>B+</option>
@@ -267,23 +271,23 @@
     </div>
 
     <div class="row"><label for="m_comunica">Limitaciones para comunicarse</label>
-      <input id="m_comunica" placeholder="Hipoacusia. Demencia. Afasia. No habla espanol."></div>
+      <input id="m_comunica" placeholder="Hipoacusia. Demencia. Afasia. No habla español."></div>
 
     <div class="grid2">
-      <div class="row"><label for="m_medico">Medico de cabecera</label><input id="m_medico"></div>
-      <div class="row"><label for="m_medicotel">Su telefono</label>
+      <div class="row"><label for="m_medico">Médico de cabecera</label><input id="m_medico"></div>
+      <div class="row"><label for="m_medicotel">Su teléfono</label>
         <input id="m_medicotel" type="tel" inputmode="tel"></div>
     </div>
 
     <div class="grid2">
-      <div class="row"><label for="m_tetanos">Antitetanica (ano)</label>
+      <div class="row"><label for="m_tetanos">Antitetánica (año)</label>
         <input id="m_tetanos" inputmode="numeric" placeholder="2021"></div>
-      <div class="row"><label for="m_donante">Donante de organos</label>
-        <select id="m_donante"><option value="">Sin dato</option><option>Si</option><option>No</option></select></div>
+      <div class="row"><label for="m_donante">Donante de órganos</label>
+        <select id="m_donante"><option value="">Sin dato</option><option>Sí</option><option>No</option></select></div>
     </div>
 
     <div class="row"><label for="m_directivas">Directivas anticipadas</label>
-      <input id="m_directivas" placeholder="Tiene documento firmado. Donde esta guardado."></div>
+      <input id="m_directivas" placeholder="Tiene documento firmado. Dónde está guardado."></div>
   </div>
 
   <button class="btn ok" onclick="guardar()">Guardar</button>
@@ -302,7 +306,7 @@ const MESES_AVISO = 6;
 const COBERTURAS = [
   ["", ""],
   ["Swiss Medical", "08007777800"],
-  ["Medife", "08003330075"],
+  ["Medifé", "08003330075"],
   ["OSDE", "08108887788"],
   ["PAMI", "139"],
   ["Vittal", "08103338888"],
@@ -312,11 +316,12 @@ const COBERTURAS = [
 ];
 
 let db = { v: 2, perfiles: [] };
-let actual = 0;
-let editIdx = null;
+let actual = 0;        // índice del perfil seleccionado
+let editIdx = null;    // índice en edición, null = nuevo
 let conPaciente = true;
-let ubic = null;
+let ubic = null;       // {lat, lon, texto}
 
+/* ---------- almacenamiento ---------- */
 function cargar(){
   try{
     const raw = localStorage.getItem(KEY);
@@ -337,6 +342,7 @@ function perfilVacio(){
     edit:"" };
 }
 
+/* ---------- utilidades ---------- */
 const $ = id => document.getElementById(id);
 function esc(s){ return String(s==null?"":s).replace(/[&<>"']/g, c =>
   ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
@@ -349,7 +355,7 @@ function edad(nac){
   let a = h.getFullYear() - d.getFullYear();
   const m = h.getMonth() - d.getMonth();
   if(m < 0 || (m === 0 && h.getDate() < d.getDate())) a--;
-  return a >= 0 && a < 130 ? a + " anos" : "";
+  return a >= 0 && a < 130 ? a + " años" : "";
 }
 function meses(iso){
   if(!iso) return 999;
@@ -363,6 +369,7 @@ function fecha(iso){
   return isNaN(d) ? "sin fecha" : d.toLocaleDateString("es-AR");
 }
 
+/* ---------- navegación ---------- */
 function ir(v){
   ["home","datos","perfiles","edit"].forEach(x =>
     $("v-"+x).classList.toggle("hide", x !== v));
@@ -372,6 +379,7 @@ function ir(v){
   if(v === "perfiles") pintarPerfiles();
 }
 
+/* ---------- inicio ---------- */
 function pintarHome(){
   const c = $("chips");
   c.innerHTML = "";
@@ -398,11 +406,11 @@ function pintarHome(){
   if(edad(p.nac)) bits.push(edad(p.nac));
   if(p.cob) bits.push(p.cob);
   if(p.afi) bits.push("afiliado " + p.afi);
-  $("qSub").textContent = bits.join(" - ") || "Ficha incompleta";
+  $("qSub").textContent = bits.join(" · ") || "Ficha incompleta";
 
   $("lAmb").textContent = p.cob
-    ? p.cob + (p.cobtel ? " - " + p.cobtel : " - sin telefono cargado")
-    : "Sin cobertura cargada - usa el 107";
+    ? p.cob + (p.cobtel ? " · " + p.cobtel : " · sin teléfono cargado")
+    : "Sin cobertura cargada — usá el 107";
   $("lFam").textContent = p.contactos && p.contactos.length
     ? "WhatsApp a " + p.contactos.map(x => x.nombre).filter(Boolean).join(", ")
     : "Sin contactos cargados";
@@ -413,7 +421,7 @@ function pintarHome(){
   if(m > MESES_AVISO){
     av.classList.remove("hide");
     av.innerHTML = "Esta ficha no se revisa desde " + esc(fecha(p.edit)) +
-      ". Verifica la medicacion antes de dictarla.";
+      ". Verificá la medicación antes de dictarla.";
   } else av.classList.add("hide");
 
   $("pSi").classList.toggle("on", conPaciente);
@@ -426,6 +434,7 @@ function setPresencia(v){
   pintarHome();
 }
 
+/* ---------- ubicación ---------- */
 function pedirUbicacion(){
   if(!navigator.geolocation) return;
   navigator.geolocation.getCurrentPosition(pos => {
@@ -438,10 +447,11 @@ function pedirUbicacion(){
   }, () => {}, { enableHighAccuracy:true, timeout:10000, maximumAge:60000 });
 }
 
+/* ---------- acciones ---------- */
 function llamarAmbulancia(){
   const p = db.perfiles[actual];
   if(!p.cobtel){
-    if(!confirm("Este perfil no tiene telefono de cobertura. Llamo al 107?")) return;
+    if(!confirm("Este perfil no tiene teléfono de cobertura. ¿Llamo al 107?")) return;
     return llamar107();
   }
   avisarFamilia(true);
@@ -458,10 +468,10 @@ function textoUbicacion(){
     if(ubic) return (ubic.texto ? ubic.texto + ". " : "") +
       "Coordenadas " + ubic.lat.toFixed(5) + ", " + ubic.lon.toFixed(5) +
       ". Domicilio registrado: " + (p.dom || "no cargado");
-    return "Ubicacion no disponible. Domicilio registrado: " + (p.dom || "no cargado");
+    return "Ubicación no disponible. Domicilio registrado: " + (p.dom || "no cargado");
   }
   return "Domicilio de la persona: " + (p.dom || "no cargado") +
-    (p.ref ? ". " + p.ref : "") + ". Quien llama NO esta en el lugar.";
+    (p.ref ? ". " + p.ref : "") + ". Quien llama NO está en el lugar.";
 }
 
 function avisarFamilia(emergencia){
@@ -471,10 +481,265 @@ function avisarFamilia(emergencia){
     return;
   }
   const cab = emergencia
-    ? "EMERGENCIA. Se pidio ambulancia para " + (p.nombre || "esta persona") + "."
+    ? "EMERGENCIA. Se pidió ambulancia para " + (p.nombre || "esta persona") + "."
     : "Aviso por " + (p.nombre || "esta persona") + ".";
   const cuerpo = cab + "\n" + textoUbicacion() +
-    (conPaciente ? "" : "\nQuien avisa no esta en el lugar.");
+    (conPaciente ? "" : "\nQuien avisa no está en el lugar.");
   const n = tel(p.contactos[0].telefono);
   if(!n) return;
-  const url = "https://wa.me/" + n.replace(/^\+/,"") + "?text=" 
+  const url = "https://wa.me/" + n.replace(/^\+/,"") + "?text=" + encodeURIComponent(cuerpo);
+  if(emergencia) window.open(url, "_blank"); else location.href = url;
+}
+
+function falsaAlarma(){
+  const p = db.perfiles[actual];
+  if(!p.contactos || !p.contactos.length) return alert("No hay contactos cargados.");
+  const n = tel(p.contactos[0].telefono);
+  const t = "Falsa alarma. " + (p.nombre || "La persona") + " está bien. No hace falta hacer nada.";
+  location.href = "https://wa.me/" + n.replace(/^\+/,"") + "?text=" + encodeURIComponent(t);
+}
+
+/* ---------- ficha ---------- */
+function fila(k, v){
+  if(!v) return "";
+  return '<div class="dt"><b>' + esc(k) + '</b><span>' + esc(v) + '</span></div>';
+}
+function pintarDatos(){
+  const p = db.perfiles[actual];
+  $("dTitulo").textContent = p.nombre || "Ficha";
+
+  let d = "";
+  d += fila("Ubicación", textoUbicacion());
+  d += fila("Llamar a", p.tel || "teléfono de quien llama");
+  d += fila("Paciente", (p.nombre || "") + (edad(p.nac) ? ", " + edad(p.nac) : ""));
+  d += fila("Cobertura", [p.cob, p.plan, p.afi ? "afiliado " + p.afi : ""].filter(Boolean).join(" · "));
+  d += fila("DNI", p.dni);
+  if(!conPaciente) d += '<div class="peligro">Quien llama no está en el lugar. La dirección es la registrada, no el GPS de este teléfono.</div>';
+  $("dictado").innerHTML = d;
+
+  const m = p.med || {};
+  let f = "";
+  f += fila("Alergias", m.alergias);
+  f += fila("Medicación", m.medic);
+  f += fila("Med. crítica", m.criticos);
+  f += fila("Crónicas", m.cronicas);
+  f += fila("Implantes", m.disp);
+  f += fila("Grupo sang.", m.sangre);
+  f += fila("Peso", m.peso ? m.peso + " kg" : "");
+  f += fila("Comunicación", m.comunica);
+  f += fila("Médico", [m.medico, m.medicotel].filter(Boolean).join(" · "));
+  f += fila("Antitetánica", m.tetanos);
+  f += fila("Donante", m.donante);
+  f += fila("Directivas", m.directivas);
+  $("fichaMed").innerHTML = f || '<p class="muted">Ficha médica vacía. Cargala con Editar.</p>';
+
+  $("fichaCon").innerHTML = (p.contactos || []).map(c =>
+    fila(c.nombre || "Contacto", c.telefono)).join("") ||
+    '<p class="muted">Sin contactos.</p>';
+
+  $("dActualizado").textContent = "Última edición: " + fecha(p.edit);
+}
+
+function textoPlano(){
+  const p = db.perfiles[actual];
+  const m = p.med || {};
+  const L = [];
+  L.push(textoUbicacion());
+  L.push("Llamar a: " + (p.tel || "-"));
+  L.push("Paciente: " + (p.nombre || "-") + (edad(p.nac) ? ", " + edad(p.nac) : ""));
+  L.push("Cobertura: " + ([p.cob, p.plan, p.afi].filter(Boolean).join(" ") || "-"));
+  L.push("DNI: " + (p.dni || "-"));
+  if(m.alergias) L.push("Alergias: " + m.alergias);
+  if(m.medic) L.push("Medicación: " + m.medic);
+  if(m.criticos) L.push("Medicación crítica: " + m.criticos);
+  if(m.cronicas) L.push("Crónicas: " + m.cronicas);
+  if(m.disp) L.push("Implantes: " + m.disp);
+  if(m.sangre) L.push("Grupo: " + m.sangre);
+  if(m.peso) L.push("Peso: " + m.peso + " kg");
+  return L.join("\n");
+}
+function copiarTexto(t, msg){
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(t).then(() => alert(msg),
+      () => prompt("Copialo a mano:", t));
+  } else prompt("Copialo a mano:", t);
+}
+function copiarDictado(){ copiarTexto(textoPlano(), "Texto copiado."); }
+function copiarNativa(){
+  const g = actual; actual = 0;
+  const p = db.perfiles[0], m = p.med || {};
+  const t = [
+    "Alergias: " + (m.alergias || "-"),
+    "Medicación: " + (m.medic || "-") + (m.criticos ? " | CRÍTICA: " + m.criticos : ""),
+    "Crónicas: " + (m.cronicas || "-"),
+    "Implantes: " + (m.disp || "-"),
+    "Grupo: " + (m.sangre || "-") + " | Peso: " + (m.peso || "-") + " kg",
+    "Cobertura: " + [p.cob, p.afi].filter(Boolean).join(" ") + " | Emergencias: " + (p.cobtel || "-"),
+    "Médico: " + [m.medico, m.medicotel].filter(Boolean).join(" ")
+  ].join("\n");
+  actual = g;
+  copiarTexto(t, "Ficha copiada. Pegala en Ajustes > Seguridad y emergencias > Información médica.");
+}
+
+/* ---------- perfiles ---------- */
+function pintarPerfiles(){
+  $("listaPerfiles").innerHTML = db.perfiles.map((p,i) =>
+    '<div class="lista"><span class="n">' + esc(p.nombre || "Sin nombre") +
+    (i === 0 ? " · vos" : "") + '</span>' +
+    '<button onclick="editar(' + i + ')">Editar</button></div>').join("") ||
+    '<p class="muted">Todavía no hay nadie cargado.</p>';
+  $("btnNuevo").classList.toggle("hide", db.perfiles.length >= MAX);
+}
+
+/* ---------- edición ---------- */
+function editar(i){
+  editIdx = i;
+  const p = (i === null) ? perfilVacio() : db.perfiles[i];
+  $("eTitulo").textContent = (i === null) ? "Nueva persona"
+    : (i === 0 ? "Mis datos" : (p.nombre || "Datos"));
+  $("btnBorrar").classList.toggle("hide", i === null || i === 0);
+
+  const sel = $("f_cob");
+  sel.innerHTML = COBERTURAS.map(c =>
+    '<option value="' + esc(c[0]) + '">' + esc(c[0] || "Sin cobertura") + "</option>").join("");
+
+  $("f_nombre").value = p.nombre || "";
+  $("f_dni").value = p.dni || "";
+  $("f_nac").value = p.nac || "";
+  $("f_tel").value = p.tel || "";
+  $("f_dom").value = p.dom || "";
+  $("f_ref").value = p.ref || "";
+  sel.value = p.cob || "";
+  $("f_cobtel").value = p.cobtel || "";
+  $("f_plan").value = p.plan || "";
+  $("f_afi").value = p.afi || "";
+
+  const m = p.med || {};
+  ["alergias","medic","criticos","cronicas","disp","sangre","peso",
+   "comunica","medico","medicotel","tetanos","donante","directivas"]
+    .forEach(k => { const el = $("m_" + k); if(el) el.value = m[k] || ""; });
+
+  $("editContactos").innerHTML = "";
+  const cs = (p.contactos && p.contactos.length) ? p.contactos : [{nombre:"",telefono:""}];
+  cs.forEach(c => addContacto(c.nombre, c.telefono));
+
+  ir("edit");
+}
+function addContacto(n, t){
+  const d = document.createElement("div");
+  d.className = "contacto";
+  d.innerHTML = '<input placeholder="Nombre" value="' + esc(n||"") + '">' +
+                '<input placeholder="5491122223333" inputmode="tel" value="' + esc(t||"") + '">' +
+                '<button type="button">✕</button>';
+  d.querySelector("button").onclick = () => d.remove();
+  $("editContactos").appendChild(d);
+}
+function autoTelCobertura(){
+  const v = $("f_cob").value;
+  const c = COBERTURAS.find(x => x[0] === v);
+  if(c && c[1]) $("f_cobtel").value = c[1];
+}
+function guardar(){
+  const nom = $("f_nombre").value.trim();
+  if(!nom) return alert("Falta el nombre.");
+  const p = (editIdx === null) ? perfilVacio() : db.perfiles[editIdx];
+
+  p.nombre = nom;
+  p.dni = $("f_dni").value.trim();
+  p.nac = $("f_nac").value;
+  p.tel = $("f_tel").value.trim();
+  p.dom = $("f_dom").value.trim();
+  p.ref = $("f_ref").value.trim();
+  p.cob = $("f_cob").value;
+  p.cobtel = $("f_cobtel").value.trim();
+  p.plan = $("f_plan").value.trim();
+  p.afi = $("f_afi").value.trim();
+
+  p.med = p.med || {};
+  ["alergias","medic","criticos","cronicas","disp","sangre","peso",
+   "comunica","medico","medicotel","tetanos","donante","directivas"]
+    .forEach(k => { const el = $("m_" + k); if(el) p.med[k] = el.value.trim(); });
+
+  p.contactos = [];
+  document.querySelectorAll("#editContactos .contacto").forEach(d => {
+    const ins = d.querySelectorAll("input");
+    const n = ins[0].value.trim(), t = ins[1].value.trim();
+    if(n || t) p.contactos.push({ nombre:n, telefono:t });
+  });
+
+  const raros = p.contactos.filter(c => c.telefono && !tel(c.telefono).replace(/^\+/,"").startsWith("54"));
+  if(raros.length && !confirm("Hay teléfonos que no empiezan con 54. WhatsApp puede no abrir. ¿Guardo igual?")) return;
+
+  p.edit = new Date().toISOString();
+
+  if(editIdx === null){
+    if(db.perfiles.length >= MAX) return alert("Llegaste al límite de " + MAX + " personas.");
+    db.perfiles.push(p);
+    actual = db.perfiles.length - 1;
+  }
+  persistir();
+  ir("home");
+}
+function cancelarEdicion(){
+  ir(db.perfiles.length ? "home" : "perfiles");
+}
+function borrarPerfil(){
+  if(editIdx === null || editIdx === 0) return;
+  const p = db.perfiles[editIdx];
+  if(!confirm("¿Borrar a " + (p.nombre || "esta persona") + "? No se puede deshacer.")) return;
+  db.perfiles.splice(editIdx, 1);
+  if(actual >= db.perfiles.length) actual = 0;
+  persistir();
+  ir("perfiles");
+}
+
+/* ---------- respaldo ---------- */
+function exportar(){
+  const blob = new Blob([JSON.stringify(db, null, 2)], { type:"application/json" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "ayuda-" + new Date().toISOString().slice(0,10) + ".json";
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+}
+function importar(inp){
+  const f = inp.files && inp.files[0];
+  if(!f) return;
+  const r = new FileReader();
+  r.onload = () => {
+    try{
+      const j = JSON.parse(r.result);
+      if(!j || !Array.isArray(j.perfiles)) throw 0;
+      if(!confirm("Esto reemplaza los " + db.perfiles.length +
+        " perfiles de este teléfono por los " + j.perfiles.length +
+        " del archivo. ¿Sigo?")) return;
+      db = { v:2, perfiles: j.perfiles.slice(0, MAX) };
+      actual = 0;
+      persistir();
+      ir("home");
+    }catch(e){ alert("El archivo no es una copia válida de Ayuda."); }
+  };
+  r.readAsText(f);
+  inp.value = "";
+}
+
+/* ---------- arranque ---------- */
+function arrancar(){
+  cargar();
+  actual = 0;          // siempre vuelve a "Yo"
+  conPaciente = true;
+  if(!db.perfiles.length){ editar(null); }
+  else { ir("home"); pedirUbicacion(); }
+}
+document.addEventListener("visibilitychange", () => {
+  if(document.visibilityState === "visible" && !$("v-home").classList.contains("hide")){
+    actual = 0; conPaciente = true; pintarHome(); pedirUbicacion();
+  }
+});
+if("serviceWorker" in navigator){
+  window.addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));
+}
+arrancar();
+</script>
+</body>
+</html>
