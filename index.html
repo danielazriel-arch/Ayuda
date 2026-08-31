@@ -3,418 +3,478 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#0E1116">
+<meta name="theme-color" content="#12141a">
 <title>Ayuda</title>
+<link rel="manifest" href="manifest.json">
 <style>
   :root{
-    --bg:#0E1116; --panel:#161B22; --line:#2A323D;
-    --txt:#FFFFFF; --dim:#9AA4B2;
-    --amb:#C81E1E; --same:#7A1010; --fam:#E07A00; --datos:#1F6FB2;
-    --ok:#17795E; --calm:#3A424E;
+    --bg:#12141a; --panel:#1c1f28; --panel2:#242835; --line:#333949;
+    --tx:#f2f4f8; --tx2:#a8b0c2; --tx3:#6f7a91;
+    --rojo:#d92b2b; --rojo2:#8f1616; --naranja:#e07a10; --azul:#1f66c9;
+    --ok:#1f8a4c; --warn:#c98a12;
   }
-  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-  html,body{margin:0;height:100%}
-  body{background:var(--bg);color:var(--txt);
-    font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
-    font-size:16px;line-height:1.35;
-    padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}
-  .screen{display:none;min-height:100dvh;flex-direction:column}
-  .screen.on{display:flex}
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+  html,body{margin:0; padding:0; background:var(--bg); color:var(--tx);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    font-size:17px; line-height:1.45; -webkit-text-size-adjust:100%}
+  body{padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
+  .wrap{max-width:560px; margin:0 auto; padding:12px 14px 28px}
+  h1{font-size:20px; margin:0; font-weight:700; letter-spacing:-.2px}
+  h2{font-size:16px; margin:22px 0 8px; font-weight:700; color:var(--tx)}
+  p{margin:8px 0}
+  .muted{color:var(--tx2); font-size:14px}
+  .tiny{color:var(--tx3); font-size:13px}
+  .hide{display:none !important}
 
-  .grid{flex:1;display:grid;grid-template-rows:repeat(4,1fr);gap:3px;padding:3px}
-  .blk{border:0;border-radius:4px;color:#fff;text-align:left;padding:16px 18px;
-    display:flex;flex-direction:column;justify-content:center;gap:4px;font-family:inherit;cursor:pointer}
-  .blk:active{filter:brightness(.82)}
-  .blk .b1{font-size:clamp(28px,8.5vw,44px);font-weight:800;letter-spacing:-.02em;text-transform:uppercase;line-height:1}
-  .blk .b2{font-size:clamp(13px,3.6vw,16px);font-weight:500;opacity:.85}
-  .amb{background:var(--amb)}.same{background:var(--same)}.fam{background:var(--fam)}.datos{background:var(--datos)}
+  /* cabecera */
+  header{display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:10px}
+  .gear{background:var(--panel2); border:1px solid var(--line); color:var(--tx);
+    border-radius:10px; padding:9px 12px; font-size:14px; font-weight:600}
 
-  .foot{display:flex;justify-content:space-between;align-items:center;padding:10px 16px 14px;color:var(--dim);font-size:13px}
-  .foot button{background:none;border:0;color:var(--dim);font:inherit;text-decoration:underline;cursor:pointer;padding:6px 0}
+  /* fichas de perfil */
+  .chips{display:flex; gap:8px; overflow-x:auto; padding:4px 0 10px; scrollbar-width:none}
+  .chips::-webkit-scrollbar{display:none}
+  .chip{flex:0 0 auto; background:var(--panel); border:2px solid var(--line);
+    color:var(--tx2); border-radius:12px; padding:10px 16px; font-size:16px;
+    font-weight:600; white-space:nowrap}
+  .chip.on{background:#fff; color:#12141a; border-color:#fff}
+  .chip.add{border-style:dashed; color:var(--tx3)}
 
-  .top{display:flex;align-items:center;gap:12px;padding:12px 14px;border-bottom:1px solid var(--line)}
-  .top h1{font-size:19px;margin:0;font-weight:700;letter-spacing:-.01em}
-  .back{background:none;border:1px solid var(--line);color:var(--txt);border-radius:6px;font:inherit;padding:8px 12px;cursor:pointer}
-  .body{padding:14px;flex:1;overflow:auto}
+  /* banda de paciente */
+  .quien{background:var(--panel); border:1px solid var(--line); border-radius:14px;
+    padding:12px 14px; margin-bottom:12px}
+  .quien .nom{font-size:26px; font-weight:800; letter-spacing:-.5px; line-height:1.15}
+  .quien .sub{font-size:14px; color:var(--tx2); margin-top:2px}
 
-  .act{display:block;width:100%;border:0;border-radius:6px;color:#fff;font-family:inherit;
-    font-size:21px;font-weight:800;text-transform:uppercase;letter-spacing:-.01em;
-    padding:19px 16px;margin-bottom:10px;text-align:left;cursor:pointer}
-  .act small{display:block;font-size:13px;font-weight:500;text-transform:none;letter-spacing:0;opacity:.85;margin-top:3px}
-  .act:active{filter:brightness(.82)}
-  .act.sec{font-size:17px;padding:15px 16px;background:var(--calm)}
+  /* interruptor presencia */
+  .presencia{display:flex; gap:8px; margin-bottom:14px}
+  .presencia button{flex:1; background:var(--panel); border:2px solid var(--line);
+    color:var(--tx2); border-radius:12px; padding:11px 8px; font-size:14px; font-weight:600}
+  .presencia button.on{background:var(--panel2); border-color:#fff; color:var(--tx)}
 
-  .card{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:14px;margin-bottom:10px}
-  .card h2{margin:0 0 6px;font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--dim);font-weight:700}
-  .card p{margin:0;font-size:19px;font-weight:600;word-break:break-word}
-  .card p.sm{font-size:16px;font-weight:500}
+  /* botones grandes */
+  .big{display:block; width:100%; border:0; border-radius:16px; color:#fff;
+    padding:20px 16px; margin-bottom:10px; text-align:left; font-family:inherit}
+  .big .l1{font-size:24px; font-weight:800; letter-spacing:-.3px; display:block}
+  .big .l2{font-size:14px; opacity:.92; display:block; margin-top:2px}
+  .b-amb{background:var(--rojo)}
+  .b-107{background:var(--rojo2)}
+  .b-fam{background:var(--naranja)}
+  .b-dat{background:var(--azul)}
+  .b-falsa{background:transparent; border:1px solid var(--line); color:var(--tx2);
+    padding:13px; font-size:15px; font-weight:600; border-radius:12px; text-align:center}
 
-  /* bloque para dictar */
-  .dictar{background:#12222E;border:1px solid #23485F;border-radius:8px;padding:4px 14px 12px;margin-bottom:12px}
-  .dictar h2{font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:#7FC2E8;font-weight:700;margin:12px 0 8px}
-  .row{padding:9px 0;border-top:1px solid #1E3A4C}
-  .row:first-of-type{border-top:0}
-  .row .k{font-size:11px;text-transform:uppercase;letter-spacing:.09em;color:#7FA6BE;font-weight:700}
-  .row .v{font-size:20px;font-weight:700;word-break:break-word;margin-top:2px}
-  .row .v.sm{font-size:17px;font-weight:600}
-  .tagaprox{display:inline-block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;
-    background:#7A4A12;color:#F0C98A;border-radius:4px;padding:2px 6px;margin-left:6px;vertical-align:middle}
-
-  .loc{font-size:14px;color:var(--dim);padding:2px 0 10px}
-  .loc.ok{color:#5FD3A6}
-
-  label{display:block;margin:14px 0 5px;font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--dim);font-weight:700}
-  input,select,textarea{width:100%;background:var(--panel);border:1px solid var(--line);border-radius:6px;
-    color:var(--txt);font:inherit;font-size:17px;padding:12px}
-  textarea{min-height:70px;resize:vertical}
-  .hint{font-size:12px;color:var(--dim);margin-top:4px}
-  details{border:1px solid var(--line);border-radius:8px;margin-top:20px;padding:0 14px}
-  details[open]{padding-bottom:14px}
-  summary{padding:15px 0;font-size:16px;font-weight:700;cursor:pointer;list-style:none}
-  summary::-webkit-details-marker{display:none}
-  summary::after{content:"  +";color:var(--dim)}
-  details[open] summary::after{content:"  −"}
-  .save{background:var(--ok);color:#fff;border:0;border-radius:6px;font:inherit;font-size:19px;font-weight:800;padding:18px;width:100%;margin-top:20px;cursor:pointer}
-  .ghost{background:none;border:1px solid var(--line);color:var(--txt);border-radius:6px;font:inherit;padding:14px;width:100%;margin-top:10px;cursor:pointer}
-  .warn{background:#3A2410;border:1px solid #7A4A12;border-radius:8px;padding:12px;font-size:14px;color:#F0C98A;margin-bottom:14px}
-  .attr{font-size:11px;color:var(--dim);text-align:center;padding:6px 0 12px}
-  .toast{position:fixed;left:14px;right:14px;bottom:18px;background:#F2F4F7;color:#0E1116;border-radius:8px;padding:14px;font-size:15px;font-weight:600;display:none;z-index:9}
-  .toast.on{display:block}
-  button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,summary:focus-visible{outline:3px solid #7FB2FF;outline-offset:2px}
-  @media (prefers-reduced-motion:no-preference){.blk,.act{transition:filter .1s}}
+  /* tarjetas y formularios */
+  .card{background:var(--panel); border:1px solid var(--line); border-radius:14px;
+    padding:14px; margin-bottom:12px}
+  .dictado{background:var(--panel2); border-left:4px solid var(--azul)}
+  .row{margin-bottom:12px}
+  label{display:block; font-size:14px; color:var(--tx2); margin-bottom:5px; font-weight:600}
+  input,select,textarea{width:100%; background:#0d0f14; border:1px solid var(--line);
+    color:var(--tx); border-radius:10px; padding:12px; font-size:16px; font-family:inherit}
+  textarea{min-height:74px; resize:vertical}
+  input:focus,select:focus,textarea:focus{outline:2px solid var(--azul); outline-offset:1px}
+  .grid2{display:grid; grid-template-columns:1fr 1fr; gap:10px}
+  .btn{display:inline-block; width:100%; border:0; border-radius:12px; padding:15px;
+    font-size:17px; font-weight:700; font-family:inherit; color:#fff; background:var(--azul); margin-top:6px}
+  .btn.sec{background:var(--panel2); border:1px solid var(--line); color:var(--tx)}
+  .btn.dan{background:#7a1a1a}
+  .btn.ok{background:var(--ok)}
+  details{border-top:1px solid var(--line); padding-top:12px; margin-top:12px}
+  summary{font-weight:700; font-size:15px; cursor:pointer; padding:4px 0}
+  .dt{display:flex; gap:10px; padding:7px 0; border-bottom:1px solid var(--line); font-size:15px}
+  .dt:last-child{border-bottom:0}
+  .dt b{flex:0 0 118px; color:var(--tx2); font-weight:600; font-size:14px}
+  .aviso{background:#3a2c08; border:1px solid var(--warn); color:#f3dfa8;
+    border-radius:12px; padding:11px 13px; font-size:14px; margin-bottom:12px}
+  .peligro{background:#3a1010; border:1px solid #8f1616; color:#f6c9c9;
+    border-radius:10px; padding:10px 12px; font-size:14px; margin:8px 0}
+  .contacto{display:flex; gap:8px; margin-bottom:8px}
+  .contacto input{flex:1}
+  .contacto button{flex:0 0 46px; background:#7a1a1a; border:0; color:#fff;
+    border-radius:10px; font-size:18px}
+  .lista{display:flex; align-items:center; gap:10px; padding:11px 0; border-bottom:1px solid var(--line)}
+  .lista .n{flex:1; font-weight:600}
+  .lista button{background:var(--panel2); border:1px solid var(--line); color:var(--tx);
+    border-radius:9px; padding:8px 12px; font-size:14px; font-weight:600}
+  @media (prefers-reduced-motion:no-preference){ .chip,.big{transition:transform .08s ease} }
+  .big:active{transform:scale(.985)}
 </style>
 </head>
 <body>
+<div class="wrap">
 
-<!-- ============ PANEL ============ -->
-<div id="s-home" class="screen">
-  <div class="grid">
-    <button class="blk amb" onclick="goEmergencia()">
-      <span class="b1">Ambulancia</span><span class="b2" id="lblAmb">Llama a la cobertura y avisa a la familia</span></button>
-    <button class="blk same" onclick="callNum('107')">
-      <span class="b1">107</span><span class="b2">Ambulancia pública SAME</span></button>
-    <button class="blk fam" onclick="goFamilia()">
-      <span class="b1">Avisar familia</span><span class="b2">Pedir ayuda sin llamar ambulancia</span></button>
-    <button class="blk datos" onclick="renderDatos()">
-      <span class="b1">Mis datos</span><span class="b2">Ficha para mostrar al médico</span></button>
+<section id="v-home" class="hide">
+  <header>
+    <h1>Ayuda</h1>
+    <button class="gear" onclick="ir('perfiles')">Perfiles</button>
+  </header>
+
+  <div class="chips" id="chips"></div>
+
+  <div id="avisoVieja" class="aviso hide"></div>
+
+  <div class="quien">
+    <div class="nom" id="qNombre">-</div>
+    <div class="sub" id="qSub">-</div>
   </div>
-  <div class="foot"><span id="quien"></span><button onclick="openConfig()">Configurar</button></div>
-</div>
 
-<!-- ============ EMERGENCIA ============ -->
-<div id="s-emergencia" class="screen">
-  <div class="top"><button class="back" onclick="show('s-home')">Volver</button><h1>Emergencia médica</h1></div>
-  <div class="body">
-    <div class="loc" id="locEmer">Buscando ubicación…</div>
-    <button class="act" style="background:var(--amb)" id="actCobertura" onclick="callCobertura()">Llamar cobertura<small></small></button>
-    <button class="act" style="background:var(--same)" onclick="callNum('107')">Llamar 107<small>Ambulancia pública, sin costo</small></button>
-    <button class="act" style="background:var(--fam)" onclick="avisar(true)">Avisar familia<small id="smFam"></small></button>
-    <div class="dictar" id="dictar"></div>
-    <div class="attr">Dirección detectada: © OpenStreetMap contributors</div>
+  <div class="presencia">
+    <button id="pSi" onclick="setPresencia(true)">Estoy con la persona</button>
+    <button id="pNo" onclick="setPresencia(false)">No estoy con ella</button>
   </div>
-</div>
 
-<!-- ============ FAMILIA ============ -->
-<div id="s-familia" class="screen">
-  <div class="top"><button class="back" onclick="show('s-home')">Volver</button><h1>Avisar a la familia</h1></div>
-  <div class="body">
-    <div class="loc" id="locFam">Buscando ubicación…</div>
-    <button class="act" style="background:var(--fam)" id="actFam1" onclick="avisarA(0,false)">WhatsApp<small></small></button>
-    <button class="act sec" id="actLlamar1" onclick="llamarA(0)">Llamar<small></small></button>
-    <div id="listaFam"></div>
-    <button class="act sec" style="background:var(--calm);margin-top:18px" onclick="falsaAlarma()">
-      Falsa alarma<small>Avisa que estás bien y que no hace falta ayuda</small></button>
+  <button class="big b-amb" onclick="llamarAmbulancia()">
+    <span class="l1">AMBULANCIA</span>
+    <span class="l2" id="lAmb">-</span>
+  </button>
+
+  <button class="big b-107" onclick="llamar107()">
+    <span class="l1">107 SAME</span>
+    <span class="l2">Emergencia publica. Gratuito, sin cobertura.</span>
+  </button>
+
+  <button class="big b-fam" onclick="avisarFamilia(false)">
+    <span class="l1">AVISAR FAMILIA</span>
+    <span class="l2" id="lFam">-</span>
+  </button>
+
+  <button class="big b-dat" onclick="ir('datos')">
+    <span class="l1">MIS DATOS</span>
+    <span class="l2" id="lDat">Ficha para dictar al operador</span>
+  </button>
+
+  <button class="b-falsa big" onclick="falsaAlarma()">Falsa alarma - avisar que ya esta</button>
+</section>
+
+<section id="v-datos" class="hide">
+  <header>
+    <h1 id="dTitulo">Ficha</h1>
+    <button class="gear" onclick="ir('home')">Volver</button>
+  </header>
+
+  <div class="card dictado">
+    <h2 style="margin-top:0">Para dictar al operador</h2>
+    <div id="dictado"></div>
+    <button class="btn sec" onclick="copiarDictado()">Copiar este texto</button>
   </div>
-</div>
 
-<!-- ============ DATOS ============ -->
-<div id="s-datos" class="screen">
-  <div class="top"><button class="back" onclick="show('s-home')">Volver</button><h1>Ficha</h1></div>
-  <div class="body" id="fichaBody"></div>
-</div>
-
-<!-- ============ CONFIG ============ -->
-<div id="s-config" class="screen">
-  <div class="top"><button class="back" id="btnCfgBack" onclick="show('s-home')">Volver</button><h1>Configurar</h1></div>
-  <div class="body">
-    <div class="warn">Los datos quedan guardados solo en este teléfono. No se envían a ningún servidor.</div>
-
-    <label for="f_nombre">Nombre y apellido</label>
-    <input id="f_nombre" autocomplete="name">
-
-    <label for="f_dni">DNI</label>
-    <input id="f_dni" inputmode="numeric">
-
-    <label for="f_nac">Fecha de nacimiento</label>
-    <input id="f_nac" type="date">
-    <div class="hint">La edad se calcula sola.</div>
-
-    <label for="f_tel">Mi celular</label>
-    <input id="f_tel" type="tel" inputmode="tel">
-    <div class="hint">El operador siempre pide un número para devolver el llamado.</div>
-
-    <label for="f_dom">Domicilio</label>
-    <textarea id="f_dom" placeholder="Calle y número, piso/depto, entre calles, localidad. Cómo entrar."></textarea>
-
-    <label for="f_cn0">Contacto principal</label>
-    <input id="f_cn0" placeholder="Nombre">
-    <input id="f_ct0" type="tel" inputmode="tel" placeholder="Celular sin 0 y sin 15" style="margin-top:6px">
-
-    <details>
-      <summary>Cobertura médica</summary>
-      <label for="f_cob">Empresa</label>
-      <select id="f_cob" onchange="preset()">
-        <option value="">Elegir…</option><option>Swiss Medical</option><option>Medifé</option>
-        <option>OSDE</option><option>Galeno</option><option>Omint</option><option>PAMI</option>
-        <option>Vittal</option><option>Otra</option>
-      </select>
-      <div id="wrapOtra" style="display:none">
-        <label for="f_cobotra">Nombre de la cobertura</label>
-        <input id="f_cobotra" placeholder="Obra social o prepaga">
-      </div>
-      <label for="f_cobtel">Teléfono de emergencias</label>
-      <input id="f_cobtel" type="tel" inputmode="tel">
-      <div class="hint" id="notaCob">Verificá el número contra el dorso de la credencial.</div>
-      <label for="f_afil">Número de afiliado</label>
-      <input id="f_afil">
-    </details>
-
-    <details>
-      <summary>Otros contactos</summary>
-      <label for="f_cn1">Contacto 2</label>
-      <input id="f_cn1" placeholder="Nombre">
-      <input id="f_ct1" type="tel" inputmode="tel" placeholder="Celular" style="margin-top:6px">
-      <label for="f_cn2">Contacto 3</label>
-      <input id="f_cn2" placeholder="Nombre">
-      <input id="f_ct2" type="tel" inputmode="tel" placeholder="Celular" style="margin-top:6px">
-    </details>
-
-    <details>
-      <summary>Ficha médica</summary>
-      <label for="f_pat">Enfermedades / antecedentes</label><textarea id="f_pat"></textarea>
-      <label for="f_med">Medicación habitual</label><textarea id="f_med"></textarea>
-      <label for="f_alg">Alergias</label><input id="f_alg">
-      <label for="f_gs">Grupo sanguíneo</label><input id="f_gs" placeholder="0+, A-, etc.">
-    </details>
-
-    <button class="save" onclick="guardar()">Guardar y activar</button>
-    <button class="ghost" onclick="copiarLink()">Copiar link con estos datos cargados</button>
-    <div class="hint">Para mandárselo a otra persona y que le quede lista sin cargar nada.</div>
+  <div class="card">
+    <h2 style="margin-top:0">Ficha medica</h2>
+    <div id="fichaMed"></div>
   </div>
-</div>
 
-<div class="toast" id="toast"></div>
+  <div class="card">
+    <h2 style="margin-top:0">Contactos</h2>
+    <div id="fichaCon"></div>
+  </div>
+
+  <button class="btn" onclick="editar(actual)">Editar estos datos</button>
+  <p class="tiny" id="dActualizado"></p>
+</section>
+
+<section id="v-perfiles" class="hide">
+  <header>
+    <h1>Perfiles</h1>
+    <button class="gear" onclick="ir('home')">Volver</button>
+  </header>
+  <p class="muted">Hasta 10 personas. El primero sos vos y no se puede borrar.</p>
+  <div class="card" id="listaPerfiles"></div>
+  <button class="btn" id="btnNuevo" onclick="editar(null)">Agregar persona</button>
+
+  <h2>Respaldo</h2>
+  <p class="muted">Los datos viven solo en este telefono. Si limpias Chrome o cambias de equipo, se pierden. Guarda una copia en Drive o mandatela por mail.</p>
+  <button class="btn sec" onclick="exportar()">Exportar copia</button>
+  <button class="btn sec" onclick="document.getElementById('fImp').click()">Importar copia</button>
+  <input type="file" id="fImp" accept=".json,application/json" class="hide" onchange="importar(this)">
+
+  <h2>Ficha del sistema</h2>
+  <p class="muted">Lo unico visible con la pantalla bloqueada es la ficha nativa de Android: Ajustes &gt; Seguridad y emergencias &gt; Informacion medica, con "Mostrar con dispositivo bloqueado" activado. Copia tu texto y pegalo ahi.</p>
+  <button class="btn sec" onclick="copiarNativa()">Copiar mi ficha para el sistema</button>
+</section>
+
+<section id="v-edit" class="hide">
+  <header>
+    <h1 id="eTitulo">Datos</h1>
+    <button class="gear" onclick="cancelarEdicion()">Cancelar</button>
+  </header>
+
+  <div class="card">
+    <div class="row"><label for="f_nombre">Nombre y apellido</label>
+      <input id="f_nombre" autocomplete="name"></div>
+    <div class="grid2">
+      <div class="row"><label for="f_dni">DNI</label>
+        <input id="f_dni" inputmode="numeric"></div>
+      <div class="row"><label for="f_nac">Fecha de nacimiento</label>
+        <input id="f_nac" type="date"></div>
+    </div>
+    <div class="row"><label for="f_tel">Telefono de esta persona</label>
+      <input id="f_tel" type="tel" inputmode="tel" placeholder="5491122223333"></div>
+    <div class="row"><label for="f_dom">Domicilio completo</label>
+      <input id="f_dom" placeholder="Calle 1234, entre X e Y, Localidad"></div>
+    <div class="row"><label for="f_ref">Referencias para llegar</label>
+      <input id="f_ref" placeholder="Barrio cerrado, piso, timbre, porton verde"></div>
+  </div>
+
+  <div class="card">
+    <h2 style="margin-top:0">Cobertura</h2>
+    <div class="row"><label for="f_cob">Prepaga u obra social</label>
+      <select id="f_cob" onchange="autoTelCobertura()"></select></div>
+    <div class="row"><label for="f_cobtel">Telefono de emergencias</label>
+      <input id="f_cobtel" type="tel" inputmode="tel"></div>
+    <div class="grid2">
+      <div class="row"><label for="f_plan">Plan</label><input id="f_plan"></div>
+      <div class="row"><label for="f_afi">N de afiliado</label><input id="f_afi"></div>
+    </div>
+    <p class="tiny">Galeno y Omint no traen numero precargado: el de emergencias cambia segun plan y zona. Copialo del dorso de la credencial.</p>
+  </div>
+
+  <div class="card">
+    <h2 style="margin-top:0">Contactos a avisar</h2>
+    <div id="editContactos"></div>
+    <button class="btn sec" onclick="addContacto()">Agregar contacto</button>
+    <p class="tiny">Para que WhatsApp abra, el numero va con codigo de pais y sin el 15: 5491122223333.</p>
+  </div>
+
+  <div class="card">
+    <h2 style="margin-top:0">Ficha medica</h2>
+    <p class="tiny" style="margin-top:0">Esto es lo que se le lee a quien atiende cuando la persona no puede responder. Si un campo no aplica, escribi "no".</p>
+
+    <div class="row"><label for="m_alergias">Alergias y tipo de reaccion</label>
+      <textarea id="m_alergias" placeholder="Penicilina: anafilaxia. AINEs: rash. Sin alergias conocidas."></textarea></div>
+
+    <div class="row"><label for="m_medic">Medicacion actual: droga, dosis, frecuencia</label>
+      <textarea id="m_medic" placeholder="Enalapril 10 mg, 1 por dia. Metformina 850 mg, 2 por dia."></textarea></div>
+
+    <div class="row"><label for="m_criticos">Medicacion critica</label>
+      <textarea id="m_criticos" placeholder="Anticoagulantes, antiagregantes, insulina, betabloqueantes, corticoides cronicos. Escribi cual y desde cuando."></textarea></div>
+
+    <div class="row"><label for="m_cronicas">Patologias cronicas</label>
+      <textarea id="m_cronicas" placeholder="Diabetes tipo 2. HTA. Epilepsia. EPOC. ACV en 2019. Dialisis martes y viernes."></textarea></div>
+
+    <div class="row"><label for="m_disp">Dispositivos implantados y cirugias mayores</label>
+      <textarea id="m_disp" placeholder="Marcapasos bicameral 2021. Stent coronario. Protesis de cadera."></textarea></div>
+
+    <div class="grid2">
+      <div class="row"><label for="m_sangre">Grupo sanguineo</label>
+        <select id="m_sangre">
+          <option value="">Sin dato</option><option>0-</option><option>0+</option>
+          <option>A-</option><option>A+</option><option>B-</option><option>B+</option>
+          <option>AB-</option><option>AB+</option>
+        </select></div>
+      <div class="row"><label for="m_peso">Peso aproximado (kg)</label>
+        <input id="m_peso" inputmode="decimal"></div>
+    </div>
+
+    <div class="row"><label for="m_comunica">Limitaciones para comunicarse</label>
+      <input id="m_comunica" placeholder="Hipoacusia. Demencia. Afasia. No habla espanol."></div>
+
+    <div class="grid2">
+      <div class="row"><label for="m_medico">Medico de cabecera</label><input id="m_medico"></div>
+      <div class="row"><label for="m_medicotel">Su telefono</label>
+        <input id="m_medicotel" type="tel" inputmode="tel"></div>
+    </div>
+
+    <div class="grid2">
+      <div class="row"><label for="m_tetanos">Antitetanica (ano)</label>
+        <input id="m_tetanos" inputmode="numeric" placeholder="2021"></div>
+      <div class="row"><label for="m_donante">Donante de organos</label>
+        <select id="m_donante"><option value="">Sin dato</option><option>Si</option><option>No</option></select></div>
+    </div>
+
+    <div class="row"><label for="m_directivas">Directivas anticipadas</label>
+      <input id="m_directivas" placeholder="Tiene documento firmado. Donde esta guardado."></div>
+  </div>
+
+  <button class="btn ok" onclick="guardar()">Guardar</button>
+  <button class="btn dan" id="btnBorrar" onclick="borrarPerfil()">Borrar esta persona</button>
+</section>
+
+</div>
 
 <script>
-/* ---------- storage ---------- */
-var mem=null;
-function load(){ if(mem) return mem;
-  try{ var r=localStorage.getItem('ayuda.cfg'); if(r) return (mem=JSON.parse(r)); }catch(e){} return null; }
-function save(c){ mem=c; try{ localStorage.setItem('ayuda.cfg',JSON.stringify(c)); }catch(e){} }
-var cfg=null;
+"use strict";
 
-/* ---------- utils ---------- */
-function $(id){ return document.getElementById(id); }
-function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g,function(c){
-  return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
-function show(id){ var s=document.querySelectorAll('.screen');
-  for(var i=0;i<s.length;i++) s[i].classList.remove('on');
-  $(id).classList.add('on'); window.scrollTo(0,0); }
-function toast(t){ var el=$('toast'); el.textContent=t; el.classList.add('on');
-  clearTimeout(el._t); el._t=setTimeout(function(){ el.classList.remove('on'); },3400); }
-function edad(iso){ if(!iso) return '';
-  var n=new Date(iso),h=new Date(),a=h.getFullYear()-n.getFullYear(),m=h.getMonth()-n.getMonth();
-  if(m<0||(m===0&&h.getDate()<n.getDate())) a--; return (a>=0&&a<130)?a:''; }
-function telHref(n){ return 'tel:'+String(n||'').replace(/[^0-9+*#]/g,''); }
-function callNum(n){ if(n) window.location.href=telHref(n); }
-function callCobertura(){ if(!cfg.cobtel){ toast('No hay teléfono de cobertura cargado. Usá 107.'); return; } callNum(cfg.cobtel); }
-function wa(n){ var d=String(n||'').replace(/\D/g,'').replace(/^0+/,'');
-  if(d.indexOf('54')===0) d=d.slice(2); d=d.replace(/^0+/,'');
-  if(d.indexOf('9')===0&&d.length>10) d=d.slice(1); return '549'+d; }
-function ct(i){ return (cfg.contactos||[])[i]||null; }
+const KEY = "ayuda_v2";
+const MAX = 10;
+const MESES_AVISO = 6;
 
-/* ---------- ubicación + dirección detectada ---------- */
-var pos={ok:false,link:'',dir:'',coords:''};
-function pedirUbicacion(elId,onDone){
-  var el=elId?$(elId):null;
-  if(el){ el.className='loc'; el.textContent='Buscando ubicación…'; }
-  if(!navigator.geolocation){ if(el) el.textContent='Este teléfono no comparte ubicación. Dictá el domicilio.'; return; }
-  navigator.geolocation.getCurrentPosition(function(p){
-    var la=p.coords.latitude, lo=p.coords.longitude;
-    pos.coords=la.toFixed(5)+', '+lo.toFixed(5);
-    pos.link='https://www.google.com/maps?q='+la.toFixed(6)+','+lo.toFixed(6);
-    pos.ok=true;
-    if(el){ el.className='loc ok'; el.textContent='Ubicación lista.'; }
-    if(onDone) onDone();
-    fetch('https://nominatim.openstreetmap.org/reverse?format=jsonv2&zoom=18&addressdetails=1&lat='+la+'&lon='+lo)
-      .then(function(r){ return r.json(); })
-      .then(function(j){
-        var a=j.address||{}, p2=[];
-        if(a.road) p2.push(a.road+(a.house_number?' '+a.house_number:''));
-        var loc=a.city||a.town||a.village||a.suburb||a.neighbourhood;
-        if(loc) p2.push(loc);
-        if(a.state) p2.push(a.state);
-        pos.dir=p2.join(', ') || (j.display_name||'');
-        if(onDone) onDone();
-      }).catch(function(){});
-  },function(){
-    if(el) el.textContent='Sin ubicación. El mensaje va con el domicilio registrado.';
-  },{enableHighAccuracy:true,timeout:10000,maximumAge:60000});
+const COBERTURAS = [
+  ["", ""],
+  ["Swiss Medical", "08007777800"],
+  ["Medife", "08003330075"],
+  ["OSDE", "08108887788"],
+  ["PAMI", "139"],
+  ["Vittal", "08103338888"],
+  ["Galeno", ""],
+  ["Omint", ""],
+  ["Otra", ""]
+];
+
+let db = { v: 2, perfiles: [] };
+let actual = 0;
+let editIdx = null;
+let conPaciente = true;
+let ubic = null;
+
+function cargar(){
+  try{
+    const raw = localStorage.getItem(KEY);
+    if(raw){ db = JSON.parse(raw); }
+  }catch(e){ db = { v:2, perfiles:[] }; }
+  if(!db.perfiles) db.perfiles = [];
+}
+function persistir(){
+  try{ localStorage.setItem(KEY, JSON.stringify(db)); }
+  catch(e){ alert("No se pudo guardar. Puede que el navegador tenga el almacenamiento bloqueado o lleno."); }
+}
+function perfilVacio(){
+  return { nombre:"", dni:"", nac:"", tel:"", dom:"", ref:"",
+    cob:"", cobtel:"", plan:"", afi:"", contactos:[],
+    med:{ alergias:"", medic:"", criticos:"", cronicas:"", disp:"",
+          sangre:"", peso:"", comunica:"", medico:"", medicotel:"",
+          tetanos:"", donante:"", directivas:"" },
+    edit:"" };
 }
 
-/* ---------- mensajes ---------- */
-function mensaje(tipo){
-  var p=[];
-  if(tipo==='emergencia'){
-    p.push('EMERGENCIA MÉDICA. Soy '+(cfg.nombre||'')+'.');
-    p.push('Estoy llamando a una ambulancia'+(cfg.cob?' ('+cfg.cob+')':'')+'.');
-  }else if(tipo==='falsa'){
-    p.push('FALSA ALARMA. Soy '+(cfg.nombre||'')+'. Estoy bien, no hace falta ayuda.');
-    return p.join(' ');
-  }else{
-    p.push('NECESITO AYUDA. Soy '+(cfg.nombre||'')+'.');
-    p.push('No llamé a una ambulancia. Comunicate conmigo.');
+const $ = id => document.getElementById(id);
+function esc(s){ return String(s==null?"":s).replace(/[&<>"']/g, c =>
+  ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
+function tel(n){ return String(n||"").replace(/[^\d+]/g,""); }
+function edad(nac){
+  if(!nac) return "";
+  const d = new Date(nac + "T00:00:00");
+  if(isNaN(d)) return "";
+  const h = new Date();
+  let a = h.getFullYear() - d.getFullYear();
+  const m = h.getMonth() - d.getMonth();
+  if(m < 0 || (m === 0 && h.getDate() < d.getDate())) a--;
+  return a >= 0 && a < 130 ? a + " anos" : "";
+}
+function meses(iso){
+  if(!iso) return 999;
+  const d = new Date(iso);
+  if(isNaN(d)) return 999;
+  return (Date.now() - d.getTime()) / (1000*60*60*24*30.4);
+}
+function fecha(iso){
+  if(!iso) return "sin fecha";
+  const d = new Date(iso);
+  return isNaN(d) ? "sin fecha" : d.toLocaleDateString("es-AR");
+}
+
+function ir(v){
+  ["home","datos","perfiles","edit"].forEach(x =>
+    $("v-"+x).classList.toggle("hide", x !== v));
+  window.scrollTo(0,0);
+  if(v === "home") pintarHome();
+  if(v === "datos") pintarDatos();
+  if(v === "perfiles") pintarPerfiles();
+}
+
+function pintarHome(){
+  const c = $("chips");
+  c.innerHTML = "";
+  db.perfiles.forEach((p,i) => {
+    const b = document.createElement("button");
+    b.className = "chip" + (i === actual ? " on" : "");
+    b.textContent = p.nombre ? p.nombre.split(" ")[0] : "Sin nombre";
+    b.onclick = () => { actual = i; pintarHome(); };
+    c.appendChild(b);
+  });
+  if(db.perfiles.length < MAX){
+    const b = document.createElement("button");
+    b.className = "chip add";
+    b.textContent = "+ Agregar";
+    b.onclick = () => editar(null);
+    c.appendChild(b);
   }
-  if(pos.dir) p.push('Estoy en: '+pos.dir+' (aproximado).');
-  if(pos.ok) p.push('Ubicación exacta: '+pos.link);
-  if(cfg.dom) p.push('Domicilio registrado: '+cfg.dom.replace(/\s+/g,' ').trim()+'.');
-  if(cfg.tel) p.push('Mi teléfono: '+cfg.tel+'.');
-  return p.join(' ');
-}
-function abrirWa(tel,texto){ window.open('https://wa.me/'+wa(tel)+'?text='+encodeURIComponent(texto),'_blank'); }
-function avisarA(i,emer){ var c=ct(i); if(!c){ toast('No hay contacto cargado.'); return; }
-  abrirWa(c.tel, mensaje(emer?'emergencia':'ayuda')); }
-function llamarA(i){ var c=ct(i); if(c) callNum(c.tel); }
-function avisar(emer){ avisarA(0,emer); }
-function falsaAlarma(){ var c=ct(0); if(!c){ toast('No hay contacto cargado.'); return; }
-  abrirWa(c.tel, mensaje('falsa')); }
 
-/* ---------- pantallas ---------- */
-function fila(k,v,cls,tag){ if(!v) return '';
-  return '<div class="row"><div class="k">'+esc(k)+'</div><div class="v'+(cls?' '+cls:'')+'">'+esc(v)+
-    (tag?'<span class="tagaprox">'+esc(tag)+'</span>':'')+'</div></div>'; }
-function renderDictar(){
-  var e=edad(cfg.nac);
-  $('dictar').innerHTML =
-    '<h2>Para dictar al operador</h2>' +
-    fila('1 · Dónde estoy', pos.dir || (pos.ok?pos.coords:'Buscando…'), '', pos.dir?'aproximado':'') +
-    fila('Coordenadas', pos.coords, 'sm') +
-    fila('Domicilio registrado', cfg.dom, 'sm') +
-    fila('2 · Teléfono de contacto', cfg.tel) +
-    fila('3 · Paciente', (cfg.nombre||'')+(e!==''?', '+e+' años':'')) +
-    fila('4 · Cobertura y afiliado', (cfg.cob||'')+(cfg.afil?' · '+cfg.afil:''), 'sm') +
-    fila('5 · DNI', cfg.dni, 'sm');
+  const p = db.perfiles[actual];
+  if(!p) return;
+
+  $("qNombre").textContent = p.nombre || "Sin nombre";
+  const bits = [];
+  if(edad(p.nac)) bits.push(edad(p.nac));
+  if(p.cob) bits.push(p.cob);
+  if(p.afi) bits.push("afiliado " + p.afi);
+  $("qSub").textContent = bits.join(" - ") || "Ficha incompleta";
+
+  $("lAmb").textContent = p.cob
+    ? p.cob + (p.cobtel ? " - " + p.cobtel : " - sin telefono cargado")
+    : "Sin cobertura cargada - usa el 107";
+  $("lFam").textContent = p.contactos && p.contactos.length
+    ? "WhatsApp a " + p.contactos.map(x => x.nombre).filter(Boolean).join(", ")
+    : "Sin contactos cargados";
+  $("lDat").textContent = "Ficha de " + (p.nombre ? p.nombre.split(" ")[0] : "esta persona");
+
+  const m = meses(p.edit);
+  const av = $("avisoVieja");
+  if(m > MESES_AVISO){
+    av.classList.remove("hide");
+    av.innerHTML = "Esta ficha no se revisa desde " + esc(fecha(p.edit)) +
+      ". Verifica la medicacion antes de dictarla.";
+  } else av.classList.add("hide");
+
+  $("pSi").classList.toggle("on", conPaciente);
+  $("pNo").classList.toggle("on", !conPaciente);
 }
-function goEmergencia(){
-  show('s-emergencia');
-  renderDictar();
-  pedirUbicacion('locEmer', renderDictar);
-  $('actCobertura').querySelector('small').textContent = cfg.cob ? cfg.cob+' · '+(cfg.cobtel||'sin número') : 'Sin cobertura cargada';
-  var c0=ct(0); $('smFam').textContent = c0 ? 'WhatsApp a '+(c0.nombre||c0.tel)+' con la ubicación' : 'Sin contacto cargado';
-  if(cfg.cobtel) setTimeout(callCobertura,400);
+
+function setPresencia(v){
+  conPaciente = v;
+  if(v) pedirUbicacion(); else ubic = null;
+  pintarHome();
 }
-function goFamilia(){
-  show('s-familia');
-  pedirUbicacion('locFam');
-  var c0=ct(0);
-  $('actFam1').querySelector('small').textContent = c0 ? (c0.nombre||c0.tel)+' · mensaje con ubicación' : 'Sin contacto cargado';
-  $('actLlamar1').querySelector('small').textContent = c0 ? (c0.nombre||c0.tel) : '';
-  var h='';
-  for(var i=1;i<3;i++){ var c=ct(i); if(!c) continue;
-    h += '<div class="card"><h2>'+esc(c.nombre||'Contacto '+(i+1))+'</h2>'+
-         '<button class="act sec" style="margin:8px 0 6px" onclick="llamarA('+i+')">Llamar</button>'+
-         '<button class="act sec" style="margin-bottom:0" onclick="avisarA('+i+',false)">WhatsApp</button></div>';
+
+function pedirUbicacion(){
+  if(!navigator.geolocation) return;
+  navigator.geolocation.getCurrentPosition(pos => {
+    ubic = { lat: pos.coords.latitude, lon: pos.coords.longitude, texto: "" };
+    fetch("https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=" +
+      ubic.lat + "&lon=" + ubic.lon)
+      .then(r => r.json())
+      .then(j => { ubic.texto = j.display_name || ""; if(!$("v-datos").classList.contains("hide")) pintarDatos(); })
+      .catch(() => {});
+  }, () => {}, { enableHighAccuracy:true, timeout:10000, maximumAge:60000 });
+}
+
+function llamarAmbulancia(){
+  const p = db.perfiles[actual];
+  if(!p.cobtel){
+    if(!confirm("Este perfil no tiene telefono de cobertura. Llamo al 107?")) return;
+    return llamar107();
   }
-  $('listaFam').innerHTML=h;
+  avisarFamilia(true);
+  location.href = "tel:" + tel(p.cobtel);
 }
-function renderDatos(){
-  show('s-datos');
-  var e=edad(cfg.nac);
-  function card(t,v){ return v?'<div class="card"><h2>'+esc(t)+'</h2><p class="sm">'+esc(v)+'</p></div>':''; }
-  $('fichaBody').innerHTML =
-    '<div class="card"><h2>Paciente</h2><p>'+esc(cfg.nombre||'')+(e!==''?' · '+e+' años':'')+'</p></div>'+
-    card('DNI',cfg.dni)+card('Teléfono',cfg.tel)+
-    card('Cobertura',(cfg.cob||'')+(cfg.afil?' · Afiliado '+cfg.afil:''))+
-    card('Enfermedades / antecedentes',cfg.pat)+card('Medicación habitual',cfg.med)+
-    card('Alergias',cfg.alg)+card('Grupo sanguíneo',cfg.gs)+card('Domicilio',cfg.dom);
+function llamar107(){
+  avisarFamilia(true);
+  location.href = "tel:107";
 }
 
-/* ---------- config ---------- */
-var TELCOB={
-  'Swiss Medical':'0800-777-7800',
-  'Medifé':'0800-333-0075',
-  'OSDE':'0810-888-7788',
-  'PAMI':'139',
-  'Vittal':'0810-333-8888',
-  'Galeno':'',
-  'Omint':''
-};
-var NOTACOB={
-  'Swiss Medical':'Urgencias y emergencias médicas. Verificalo contra el dorso de la credencial.',
-  'Medifé':'Servicio de Emergencias, las 24 h.',
-  'OSDE':'Servicio de coordinación de urgencias. Riesgo de vida: consultá el número de tu plan en la credencial.',
-  'PAMI':'El 139 vale para AMBA y UGL Rosario. En el resto del país el número depende del prestador asignado: buscalo en pami.org.ar/emergencias.',
-  'Vittal':'Línea nacional. En AMBA también atiende el (11) 4000-8888. Rosario y otras plazas tienen número propio.',
-  'Galeno':'El número cambia según plan y zona. Cargalo del dorso de la credencial.',
-  'Omint':'El número cambia según plan. Cargalo del dorso de la credencial.'
-};
-function preset(){
-  var v=$('f_cob').value;
-  $('wrapOtra').style.display = (v==='Otra') ? '' : 'none';
-  $('f_cobtel').value = TELCOB[v] || '';
-  $('notaCob').textContent = NOTACOB[v] || 'Verificá el número contra el dorso de la credencial.';
-  if(v!=='Otra') $('f_cobotra').value='';
-}
-function openConfig(){
-  show('s-config'); var c=cfg||{};
-  $('f_nombre').value=c.nombre||''; $('f_dni').value=c.dni||''; $('f_nac').value=c.nac||'';
-  $('f_tel').value=c.tel||''; $('f_dom').value=c.dom||'';
-  $('f_cob').value=c.cob||'';
-  if(c.cob && $('f_cob').value!==c.cob){ $('f_cob').value='Otra'; $('f_cobotra').value=c.cob; }
-  $('wrapOtra').style.display = ($('f_cob').value==='Otra') ? '' : 'none';
-  $('f_cobtel').value=c.cobtel||''; $('f_afil').value=c.afil||'';
-  $('notaCob').textContent = NOTACOB[$('f_cob').value] || 'Verificá el número contra el dorso de la credencial.';
-  $('f_pat').value=c.pat||''; $('f_med').value=c.med||''; $('f_alg').value=c.alg||''; $('f_gs').value=c.gs||'';
-  var t=c.contactos||[];
-  for(var i=0;i<3;i++){ if(t[i]){ $('f_cn'+i).value=t[i].nombre||''; $('f_ct'+i).value=t[i].tel||''; } }
-  $('btnCfgBack').style.display=cfg?'':'none';
-}
-function leerForm(){
-  var t=[]; for(var i=0;i<3;i++){ var n=$('f_cn'+i).value.trim(), x=$('f_ct'+i).value.trim(); if(x) t.push({nombre:n,tel:x}); }
-  return { nombre:$('f_nombre').value.trim(), dni:$('f_dni').value.trim(), nac:$('f_nac').value,
-    tel:$('f_tel').value.trim(), dom:$('f_dom').value.trim(),
-    cob:($('f_cob').value==='Otra' ? $('f_cobotra').value.trim() : $('f_cob').value),
-    cobtel:$('f_cobtel').value.trim(), afil:$('f_afil').value.trim(),
-    pat:$('f_pat').value.trim(), med:$('f_med').value.trim(), alg:$('f_alg').value.trim(), gs:$('f_gs').value.trim(),
-    contactos:t };
-}
-function guardar(){
-  var c=leerForm();
-  if(!c.nombre){ toast('Falta el nombre.'); return; }
-  if(!c.contactos.length){ toast('Cargá al menos el contacto principal.'); return; }
-  save(c); cfg=c; aplicar(); show('s-home'); toast('Listo. Los botones ya están activos.');
-}
-function copiarLink(){
-  var c=leerForm();
-  var url=location.origin+location.pathname+'#cfg='+btoa(unescape(encodeURIComponent(JSON.stringify(c))));
-  if(navigator.clipboard&&navigator.clipboard.writeText){
-    navigator.clipboard.writeText(url).then(function(){ toast('Link copiado.'); },function(){ prompt('Copiá este link:',url); });
-  } else prompt('Copiá este link:',url);
+function textoUbicacion(){
+  const p = db.perfiles[actual];
+  if(conPaciente){
+    if(ubic) return (ubic.texto ? ubic.texto + ". " : "") +
+      "Coordenadas " + ubic.lat.toFixed(5) + ", " + ubic.lon.toFixed(5) +
+      ". Domicilio registrado: " + (p.dom || "no cargado");
+    return "Ubicacion no disponible. Domicilio registrado: " + (p.dom || "no cargado");
+  }
+  return "Domicilio de la persona: " + (p.dom || "no cargado") +
+    (p.ref ? ". " + p.ref : "") + ". Quien llama NO esta en el lugar.";
 }
 
-/* ---------- arranque ---------- */
-function aplicar(){
-  $('quien').textContent=cfg.nombre||'';
-  $('lblAmb').textContent = cfg.cob ? 'Llama a '+cfg.cob+' y avisa a la familia' : 'Llama al 107 y avisa a la familia';
-}
-(function init(){
-  var m=location.hash.match(/cfg=([^&]+)/);
-  if(m){ try{ var imp=JSON.parse(decodeURIComponent(escape(atob(m[1]))));
-      if(!load()||confirm('Este link trae los datos de '+(imp.nombre||'otra persona')+'. ¿Reemplazar la configuración de este teléfono?')) save(imp);
-    }catch(e){} history.replaceState(null,'',location.pathname); }
-  cfg=load();
-  if(!cfg){ openConfig(); } else { aplicar(); show('s-home'); }
-})();
-</script>
-</body>
-</html>
+function avisarFamilia(emergencia){
+  const p = db.perfiles[actual];
+  if(!p.contactos || !p.contactos.length){
+    if(!emergencia) alert("Este perfil no tiene contactos cargados. Agregalos desde Editar.");
+    return;
+  }
+  const cab = emergencia
+    ? "EMERGENCIA. Se pidio ambulancia para " + (p.nombre || "esta persona") + "."
+    : "Aviso por " + (p.nombre || "esta persona") + ".";
+  const cuerpo = cab + "\n" + textoUbicacion() +
+    (conPaciente ? "" : "\nQuien avisa no esta en el lugar.");
+  const n = tel(p.contactos[0].telefono);
+  if(!n) return;
+  const url = "https://wa.me/" + n.replace(/^\+/,"") + "?text=" 
