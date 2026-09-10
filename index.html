@@ -20,18 +20,17 @@
   body{padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
   .wrap{max-width:560px; margin:0 auto; padding:12px 14px 28px}
   h1{font-size:20px; margin:0; font-weight:700; letter-spacing:-.2px}
-  h2{font-size:16px; margin:22px 0 8px; font-weight:700; color:var(--tx)}
+  h2{font-size:16px; margin:22px 0 8px; font-weight:700}
+  h3{margin:0 0 4px; font-size:17px; font-weight:800}
   p{margin:8px 0}
   .muted{color:var(--tx2); font-size:14px}
   .tiny{color:var(--tx3); font-size:13px}
   .hide{display:none !important}
 
-  /* cabecera */
   header{display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:10px}
   .gear{background:var(--panel2); border:1px solid var(--line); color:var(--tx);
     border-radius:10px; padding:9px 12px; font-size:14px; font-weight:600}
 
-  /* fichas de perfil */
   .chips{display:flex; gap:8px; overflow-x:auto; padding:4px 0 10px; scrollbar-width:none}
   .chips::-webkit-scrollbar{display:none}
   .chip{flex:0 0 auto; background:var(--panel); border:2px solid var(--line);
@@ -40,19 +39,22 @@
   .chip.on{background:#fff; color:#12141a; border-color:#fff}
   .chip.add{border-style:dashed; color:var(--tx3)}
 
-  /* banda de paciente */
   .quien{background:var(--panel); border:1px solid var(--line); border-radius:14px;
     padding:12px 14px; margin-bottom:12px}
   .quien .nom{font-size:26px; font-weight:800; letter-spacing:-.5px; line-height:1.15}
   .quien .sub{font-size:14px; color:var(--tx2); margin-top:2px}
 
-  /* interruptor presencia */
-  .presencia{display:flex; gap:8px; margin-bottom:14px}
+  .presencia{display:flex; gap:8px; margin-bottom:8px}
   .presencia button{flex:1; background:var(--panel); border:2px solid var(--line);
     color:var(--tx2); border-radius:12px; padding:11px 8px; font-size:14px; font-weight:600}
   .presencia button.on{background:var(--panel2); border-color:#fff; color:var(--tx)}
+  .ubicEstado{font-size:13px; color:var(--tx3); margin:0 0 14px; display:flex;
+    align-items:center; justify-content:space-between; gap:10px}
+  .ubicEstado button{background:none; border:0; color:var(--azul); font-size:13px;
+    font-weight:700; font-family:inherit; padding:2px 0; text-decoration:underline;
+    flex:0 0 auto}
+  .ubicEstado span{flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
 
-  /* botones grandes */
   .big{display:block; width:100%; border:0; border-radius:16px; color:#fff;
     padding:20px 16px; margin-bottom:10px; text-align:left; font-family:inherit}
   .big .l1{font-size:24px; font-weight:800; letter-spacing:-.3px; display:block}
@@ -64,7 +66,6 @@
   .b-falsa{background:transparent; border:1px solid var(--line); color:var(--tx2);
     padding:13px; font-size:15px; font-weight:600; border-radius:12px; text-align:center}
 
-  /* tarjetas y formularios */
   .card{background:var(--panel); border:1px solid var(--line); border-radius:14px;
     padding:14px; margin-bottom:12px}
   .dictado{background:var(--panel2); border-left:4px solid var(--azul)}
@@ -75,13 +76,13 @@
   textarea{min-height:74px; resize:vertical}
   input:focus,select:focus,textarea:focus{outline:2px solid var(--azul); outline-offset:1px}
   .grid2{display:grid; grid-template-columns:1fr 1fr; gap:10px}
-  .btn{display:inline-block; width:100%; border:0; border-radius:12px; padding:15px;
-    font-size:17px; font-weight:700; font-family:inherit; color:#fff; background:var(--azul); margin-top:6px}
+  .btn{display:block; width:100%; border:0; border-radius:12px; padding:15px;
+    font-size:17px; font-weight:700; font-family:inherit; color:#fff;
+    background:var(--azul); margin-top:8px; text-align:center}
   .btn.sec{background:var(--panel2); border:1px solid var(--line); color:var(--tx)}
   .btn.dan{background:#7a1a1a}
   .btn.ok{background:var(--ok)}
-  details{border-top:1px solid var(--line); padding-top:12px; margin-top:12px}
-  summary{font-weight:700; font-size:15px; cursor:pointer; padding:4px 0}
+  .btn.wa{background:#128c7e}
   .dt{display:flex; gap:10px; padding:7px 0; border-bottom:1px solid var(--line); font-size:15px}
   .dt:last-child{border-bottom:0}
   .dt b{flex:0 0 118px; color:var(--tx2); font-weight:600; font-size:14px}
@@ -89,14 +90,18 @@
     border-radius:12px; padding:11px 13px; font-size:14px; margin-bottom:12px}
   .peligro{background:#3a1010; border:1px solid #8f1616; color:#f6c9c9;
     border-radius:10px; padding:10px 12px; font-size:14px; margin:8px 0}
+  .postllamada{background:#0f2c1c; border:1px solid var(--ok); border-radius:14px;
+    padding:14px; margin-bottom:12px}
   .contacto{display:flex; gap:8px; margin-bottom:8px}
-  .contacto input{flex:1}
+  .contacto input{flex:1; min-width:0}
   .contacto button{flex:0 0 46px; background:#7a1a1a; border:0; color:#fff;
     border-radius:10px; font-size:18px}
   .lista{display:flex; align-items:center; gap:10px; padding:11px 0; border-bottom:1px solid var(--line)}
+  .lista:last-child{border-bottom:0}
   .lista .n{flex:1; font-weight:600}
   .lista button{background:var(--panel2); border:1px solid var(--line); color:var(--tx);
     border-radius:9px; padding:8px 12px; font-size:14px; font-weight:600}
+  .ver{text-align:center; color:var(--tx3); font-size:12px; margin-top:18px}
   @media (prefers-reduced-motion:no-preference){ .chip,.big{transition:transform .08s ease} }
   .big:active{transform:scale(.985)}
 </style>
@@ -104,7 +109,6 @@
 <body>
 <div class="wrap">
 
-<!-- ══════════ INICIO ══════════ -->
 <section id="v-home" class="hide">
   <header>
     <h1>Ayuda</h1>
@@ -113,6 +117,7 @@
 
   <div class="chips" id="chips"></div>
 
+  <div id="postllamada" class="postllamada hide"></div>
   <div id="avisoVieja" class="aviso hide"></div>
 
   <div class="quien">
@@ -123,6 +128,10 @@
   <div class="presencia">
     <button id="pSi" onclick="setPresencia(true)">Estoy con la persona</button>
     <button id="pNo" onclick="setPresencia(false)">No estoy con ella</button>
+  </div>
+  <div class="ubicEstado">
+    <span id="ubicTxt">—</span>
+    <button onclick="pedirUbicacion(true)">Actualizar</button>
   </div>
 
   <button class="big b-amb" onclick="llamarAmbulancia()">
@@ -135,7 +144,7 @@
     <span class="l2">Emergencia pública. Gratuito, sin cobertura.</span>
   </button>
 
-  <button class="big b-fam" onclick="avisarFamilia(false)">
+  <button class="big b-fam" onclick="ir('avisar')">
     <span class="l1">AVISAR FAMILIA</span>
     <span class="l2" id="lFam">—</span>
   </button>
@@ -145,10 +154,29 @@
     <span class="l2" id="lDat">Ficha para dictar al operador</span>
   </button>
 
-  <button class="b-falsa big" onclick="falsaAlarma()">Falsa alarma — avisar que ya está</button>
+  <button class="b-falsa big" onclick="ir('falsa')">Falsa alarma — avisar que ya está</button>
+  <div class="ver">v3</div>
 </section>
 
-<!-- ══════════ DATOS / FICHA ══════════ -->
+<section id="v-avisar" class="hide">
+  <header>
+    <h1 id="aTitulo">Avisar</h1>
+    <button class="gear" onclick="ir('home')">Volver</button>
+  </header>
+  <p class="muted" id="aSub"></p>
+  <div class="card" id="aLista"></div>
+  <p class="tiny">Se abre WhatsApp con el mensaje ya escrito. Vos tocás enviar.</p>
+</section>
+
+<section id="v-falsa" class="hide">
+  <header>
+    <h1>Falsa alarma</h1>
+    <button class="gear" onclick="ir('home')">Volver</button>
+  </header>
+  <p class="muted" id="fSub"></p>
+  <div class="card" id="fLista"></div>
+</section>
+
 <section id="v-datos" class="hide">
   <header>
     <h1 id="dTitulo">Ficha</h1>
@@ -175,7 +203,6 @@
   <p class="tiny" id="dActualizado"></p>
 </section>
 
-<!-- ══════════ PERFILES ══════════ -->
 <section id="v-perfiles" class="hide">
   <header>
     <h1>Perfiles</h1>
@@ -186,17 +213,16 @@
   <button class="btn" id="btnNuevo" onclick="editar(null)">Agregar persona</button>
 
   <h2>Respaldo</h2>
-  <p class="muted">Los datos viven solo en este teléfono. Si limpiás Chrome o cambiás de equipo, se pierden. Guardá una copia en Drive o mandátela por mail.</p>
+  <p class="muted">Los datos viven solo en este teléfono. Si limpiás el navegador o cambiás de equipo, se pierden. Guardá una copia en Drive o mandátela por mail.</p>
   <button class="btn sec" onclick="exportar()">Exportar copia</button>
   <button class="btn sec" onclick="document.getElementById('fImp').click()">Importar copia</button>
   <input type="file" id="fImp" accept=".json,application/json" class="hide" onchange="importar(this)">
 
   <h2>Ficha del sistema</h2>
-  <p class="muted">Lo único visible con la pantalla bloqueada es la ficha nativa de Android: Ajustes &gt; Seguridad y emergencias &gt; Información médica, con "Mostrar con dispositivo bloqueado" activado. Copiá tu texto y pegalo ahí.</p>
+  <p class="muted">Lo único visible con la pantalla bloqueada es la ficha nativa del teléfono: Ajustes &gt; Seguridad y emergencias &gt; Información médica, con "Mostrar con dispositivo bloqueado" activado.</p>
   <button class="btn sec" onclick="copiarNativa()">Copiar mi ficha para el sistema</button>
 </section>
 
-<!-- ══════════ EDICIÓN ══════════ -->
 <section id="v-edit" class="hide">
   <header>
     <h1 id="eTitulo">Datos</h1>
@@ -230,14 +256,14 @@
       <div class="row"><label for="f_plan">Plan</label><input id="f_plan"></div>
       <div class="row"><label for="f_afi">N° de afiliado</label><input id="f_afi"></div>
     </div>
-    <p class="tiny">Galeno y Omint no traen número precargado: el de emergencias cambia según plan y zona. Copialo del dorso de la credencial.</p>
+    <p class="tiny">Verificá el número contra el dorso de la credencial: cambia según plan y zona.</p>
   </div>
 
   <div class="card">
     <h2 style="margin-top:0">Contactos a avisar</h2>
     <div id="editContactos"></div>
     <button class="btn sec" onclick="addContacto()">Agregar contacto</button>
-    <p class="tiny">Para que WhatsApp abra, el número va con código de país y sin el 15: 5491122223333.</p>
+    <p class="tiny">Número con código de país y sin el 15: 5491122223333. No cargues acá el teléfono de la propia persona: estos son los que reciben el aviso.</p>
   </div>
 
   <div class="card">
@@ -251,7 +277,7 @@
       <textarea id="m_medic" placeholder="Enalapril 10 mg, 1 por día. Metformina 850 mg, 2 por día."></textarea></div>
 
     <div class="row"><label for="m_criticos">Medicación crítica</label>
-      <textarea id="m_criticos" placeholder="Anticoagulantes, antiagregantes, insulina, betabloqueantes, corticoides crónicos. Escribí cuál y desde cuándo."></textarea></div>
+      <textarea id="m_criticos" placeholder="Anticoagulantes, antiagregantes, insulina, betabloqueantes, corticoides crónicos."></textarea></div>
 
     <div class="row"><label for="m_cronicas">Patologías crónicas</label>
       <textarea id="m_cronicas" placeholder="Diabetes tipo 2. HTA. Epilepsia. EPOC. ACV en 2019. Diálisis martes y viernes."></textarea></div>
@@ -299,14 +325,16 @@
 <script>
 "use strict";
 
-const KEY = "ayuda_v2";
-const MAX = 10;
-const MESES_AVISO = 6;
+var KEY = "ayuda_v2";
+var MAX = 10;
+var MESES_AVISO = 6;
+var MS_RESET = 15 * 60 * 1000;
+var MS_PENDIENTE = 30 * 60 * 1000;
 
-const COBERTURAS = [
+var COBERTURAS = [
   ["", ""],
   ["Swiss Medical", "08007777800"],
-  ["Medifé", "08003330075"],
+  ["Medife", "08003330075"],
   ["OSDE", "08108887788"],
   ["PAMI", "139"],
   ["Vittal", "08103338888"],
@@ -315,23 +343,50 @@ const COBERTURAS = [
   ["Otra", ""]
 ];
 
-let db = { v: 2, perfiles: [] };
-let actual = 0;        // índice del perfil seleccionado
-let editIdx = null;    // índice en edición, null = nuevo
-let conPaciente = true;
-let ubic = null;       // {lat, lon, texto}
+var db = { v: 2, perfiles: [] };
+var actual = 0;
+var editIdx = null;
+var conPaciente = true;
+var ubic = null;
+var ubicEstado = "sin pedir";
+var pendiente = null;
+var salioEn = 0;
 
-/* ---------- almacenamiento ---------- */
+function $(id){ return document.getElementById(id); }
+function esc(s){
+  return String(s == null ? "" : s).replace(/[&<>"']/g, function(c){
+    return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];
+  });
+}
+function soloDigitos(n){ return String(n || "").replace(/\D/g, ""); }
+function paraLlamar(n){ return String(n || "").replace(/[^\d+*#]/g, ""); }
+
+function navegar(u){ window.location.href = u; }
+
+/* Devuelve el numero en formato internacional, o "" si es ambiguo. */
+function paraWhatsapp(n){
+  var d = soloDigitos(n);
+  if(!d) return "";
+  if(d.indexOf("54") === 0) return d;
+  if(d.charAt(0) === "0") d = d.slice(1);
+  if(d.indexOf("15") === 0) return "";   // falta el codigo de area: no se adivina
+  d = d.replace(/^(\d{2,4})15/, "$1");
+  if(d.length < 8) return "";
+  return "549" + d;
+}
+
 function cargar(){
   try{
-    const raw = localStorage.getItem(KEY);
-    if(raw){ db = JSON.parse(raw); }
+    var raw = localStorage.getItem(KEY);
+    if(raw) db = JSON.parse(raw);
   }catch(e){ db = { v:2, perfiles:[] }; }
-  if(!db.perfiles) db.perfiles = [];
+  if(!db || typeof db !== "object") db = { v:2, perfiles:[] };
+  if(!(db.perfiles instanceof Array)) db.perfiles = [];
+  db.perfiles = db.perfiles.filter(function(p){ return p && typeof p === "object"; });
 }
 function persistir(){
   try{ localStorage.setItem(KEY, JSON.stringify(db)); }
-  catch(e){ alert("No se pudo guardar. Puede que el navegador tenga el almacenamiento bloqueado o lleno."); }
+  catch(e){ alert("No se pudo guardar. El navegador puede tener el almacenamiento bloqueado o lleno."); }
 }
 function perfilVacio(){
   return { nombre:"", dni:"", nac:"", tel:"", dom:"", ref:"",
@@ -341,184 +396,278 @@ function perfilVacio(){
           tetanos:"", donante:"", directivas:"" },
     edit:"" };
 }
-
-/* ---------- utilidades ---------- */
-const $ = id => document.getElementById(id);
-function esc(s){ return String(s==null?"":s).replace(/[&<>"']/g, c =>
-  ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
-function tel(n){ return String(n||"").replace(/[^\d+]/g,""); }
+function perfilActual(){
+  if(!db.perfiles.length) return null;
+  if(actual < 0 || actual >= db.perfiles.length) actual = 0;
+  return db.perfiles[actual];
+}
 function edad(nac){
   if(!nac) return "";
-  const d = new Date(nac + "T00:00:00");
-  if(isNaN(d)) return "";
-  const h = new Date();
-  let a = h.getFullYear() - d.getFullYear();
-  const m = h.getMonth() - d.getMonth();
+  var d = new Date(nac + "T00:00:00");
+  if(isNaN(d.getTime())) return "";
+  var h = new Date();
+  var a = h.getFullYear() - d.getFullYear();
+  var m = h.getMonth() - d.getMonth();
   if(m < 0 || (m === 0 && h.getDate() < d.getDate())) a--;
-  return a >= 0 && a < 130 ? a + " años" : "";
+  return (a >= 0 && a < 130) ? a + " años" : "";
 }
 function meses(iso){
   if(!iso) return 999;
-  const d = new Date(iso);
-  if(isNaN(d)) return 999;
-  return (Date.now() - d.getTime()) / (1000*60*60*24*30.4);
+  var d = new Date(iso);
+  if(isNaN(d.getTime())) return 999;
+  return (Date.now() - d.getTime()) / (1000 * 60 * 60 * 24 * 30.4);
 }
 function fecha(iso){
   if(!iso) return "sin fecha";
-  const d = new Date(iso);
-  return isNaN(d) ? "sin fecha" : d.toLocaleDateString("es-AR");
+  var d = new Date(iso);
+  return isNaN(d.getTime()) ? "sin fecha" : d.toLocaleDateString("es-AR");
+}
+function nombreCorto(p){
+  if(!p || !p.nombre) return "esta persona";
+  return p.nombre.split(" ")[0];
 }
 
-/* ---------- navegación ---------- */
 function ir(v){
-  ["home","datos","perfiles","edit"].forEach(x =>
-    $("v-"+x).classList.toggle("hide", x !== v));
-  window.scrollTo(0,0);
+  var vistas = ["home","avisar","falsa","datos","perfiles","edit"];
+  for(var i = 0; i < vistas.length; i++){
+    $("v-" + vistas[i]).classList.toggle("hide", vistas[i] !== v);
+  }
+  try{ window.scrollTo(0,0); }catch(e){}
   if(v === "home") pintarHome();
+  if(v === "avisar") pintarAvisar();
+  if(v === "falsa") pintarFalsa();
   if(v === "datos") pintarDatos();
   if(v === "perfiles") pintarPerfiles();
 }
 
-/* ---------- inicio ---------- */
 function pintarHome(){
-  const c = $("chips");
+  var c = $("chips");
   c.innerHTML = "";
-  db.perfiles.forEach((p,i) => {
-    const b = document.createElement("button");
+  db.perfiles.forEach(function(p, i){
+    var b = document.createElement("button");
     b.className = "chip" + (i === actual ? " on" : "");
     b.textContent = p.nombre ? p.nombre.split(" ")[0] : "Sin nombre";
-    b.onclick = () => { actual = i; pintarHome(); };
+    b.onclick = function(){ actual = i; pintarHome(); };
     c.appendChild(b);
   });
   if(db.perfiles.length < MAX){
-    const b = document.createElement("button");
-    b.className = "chip add";
-    b.textContent = "+ Agregar";
-    b.onclick = () => editar(null);
-    c.appendChild(b);
+    var b2 = document.createElement("button");
+    b2.className = "chip add";
+    b2.textContent = "+ Agregar";
+    b2.onclick = function(){ editar(null); };
+    c.appendChild(b2);
   }
 
-  const p = db.perfiles[actual];
+  var p = perfilActual();
   if(!p) return;
 
   $("qNombre").textContent = p.nombre || "Sin nombre";
-  const bits = [];
+  var bits = [];
   if(edad(p.nac)) bits.push(edad(p.nac));
   if(p.cob) bits.push(p.cob);
   if(p.afi) bits.push("afiliado " + p.afi);
   $("qSub").textContent = bits.join(" · ") || "Ficha incompleta";
 
-  $("lAmb").textContent = p.cob
-    ? p.cob + (p.cobtel ? " · " + p.cobtel : " · sin teléfono cargado")
-    : "Sin cobertura cargada — usá el 107";
-  $("lFam").textContent = p.contactos && p.contactos.length
-    ? "WhatsApp a " + p.contactos.map(x => x.nombre).filter(Boolean).join(", ")
-    : "Sin contactos cargados";
-  $("lDat").textContent = "Ficha de " + (p.nombre ? p.nombre.split(" ")[0] : "esta persona");
+  $("lAmb").textContent = p.cobtel
+    ? "Llama a " + (p.cob || "la cobertura") + " · " + p.cobtel
+    : "Sin teléfono de cobertura cargado";
 
-  const m = meses(p.edit);
-  const av = $("avisoVieja");
-  if(m > MESES_AVISO){
+  var cn = (p.contactos || []).length;
+  $("lFam").textContent = cn
+    ? (cn === 1 ? "Mandar aviso a " + (p.contactos[0].nombre || "el contacto")
+                : "Elegir entre " + cn + " contactos")
+    : "Sin contactos cargados";
+
+  $("lDat").textContent = "Ficha de " + nombreCorto(p);
+
+  var av = $("avisoVieja");
+  if(meses(p.edit) > MESES_AVISO){
     av.classList.remove("hide");
-    av.innerHTML = "Esta ficha no se revisa desde " + esc(fecha(p.edit)) +
+    av.textContent = "Esta ficha no se revisa desde " + fecha(p.edit) +
       ". Verificá la medicación antes de dictarla.";
-  } else av.classList.add("hide");
+  } else { av.classList.add("hide"); }
 
   $("pSi").classList.toggle("on", conPaciente);
   $("pNo").classList.toggle("on", !conPaciente);
+  pintarUbicEstado();
+  pintarPostLlamada();
+}
+
+function pintarUbicEstado(){
+  var t = $("ubicTxt");
+  if(!t) return;
+  if(!conPaciente){ t.textContent = "Se usa el domicilio registrado"; return; }
+  if(ubicEstado === "ok" && ubic){
+    t.textContent = "Ubicación: " + (ubic.texto ? ubic.texto : "coordenadas listas");
+  } else if(ubicEstado === "buscando"){
+    t.textContent = "Buscando ubicación…";
+  } else if(ubicEstado === "error"){
+    t.textContent = "Sin GPS. Se usa el domicilio registrado.";
+  } else {
+    t.textContent = "Ubicación no solicitada";
+  }
 }
 
 function setPresencia(v){
   conPaciente = v;
-  if(v) pedirUbicacion(); else ubic = null;
+  if(v){ pedirUbicacion(false); } else { ubic = null; ubicEstado = "sin pedir"; }
   pintarHome();
 }
 
-/* ---------- ubicación ---------- */
-function pedirUbicacion(){
-  if(!navigator.geolocation) return;
-  navigator.geolocation.getCurrentPosition(pos => {
+function pedirUbicacion(forzar){
+  if(!navigator.geolocation){ ubicEstado = "error"; pintarUbicEstado(); return; }
+  ubicEstado = "buscando";
+  pintarUbicEstado();
+  navigator.geolocation.getCurrentPosition(function(pos){
     ubic = { lat: pos.coords.latitude, lon: pos.coords.longitude, texto: "" };
+    ubicEstado = "ok";
+    pintarUbicEstado();
     fetch("https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=" +
       ubic.lat + "&lon=" + ubic.lon)
-      .then(r => r.json())
-      .then(j => { ubic.texto = j.display_name || ""; if(!$("v-datos").classList.contains("hide")) pintarDatos(); })
-      .catch(() => {});
-  }, () => {}, { enableHighAccuracy:true, timeout:10000, maximumAge:60000 });
+      .then(function(r){ return r.json(); })
+      .then(function(j){
+        if(ubic) ubic.texto = j.display_name || "";
+        pintarUbicEstado();
+        if(!$("v-datos").classList.contains("hide")) pintarDatos();
+      })
+      .catch(function(){});
+  }, function(){
+    ubic = null;
+    ubicEstado = "error";
+    pintarUbicEstado();
+    if(forzar){
+      alert("No se pudo obtener la ubicación. Revisá que el navegador tenga permiso y que el GPS esté encendido. Mientras tanto se usa el domicilio registrado.");
+    }
+  }, { enableHighAccuracy:true, timeout:12000, maximumAge: forzar ? 0 : 60000 });
 }
 
-/* ---------- acciones ---------- */
+/* Al tocar un botón de llamada lo único que pasa es la llamada.
+   El aviso a la familia se ofrece al volver a la app. */
+function llamar(numero, etiqueta){
+  if(!perfilActual()) return;
+  pendiente = { idx: actual, tipo: etiqueta, cuando: Date.now() };
+  navegar("tel:" + paraLlamar(numero));
+}
 function llamarAmbulancia(){
-  const p = db.perfiles[actual];
+  var p = perfilActual();
+  if(!p) return;
   if(!p.cobtel){
-    if(!confirm("Este perfil no tiene teléfono de cobertura. ¿Llamo al 107?")) return;
-    return llamar107();
+    if(confirm("Este perfil no tiene teléfono de cobertura cargado.\n\n¿Llamo al 107?")) llamar107();
+    return;
   }
-  avisarFamilia(true);
-  location.href = "tel:" + tel(p.cobtel);
+  llamar(p.cobtel, p.cob || "la cobertura");
 }
-function llamar107(){
-  avisarFamilia(true);
-  location.href = "tel:107";
+function llamar107(){ llamar("107", "el 107"); }
+
+function pintarPostLlamada(){
+  var box = $("postllamada");
+  if(!box) return;
+  if(!pendiente || (Date.now() - pendiente.cuando) > MS_PENDIENTE){
+    box.classList.add("hide");
+    box.innerHTML = "";
+    return;
+  }
+  var p = db.perfiles[pendiente.idx];
+  if(!p){ box.classList.add("hide"); return; }
+  box.classList.remove("hide");
+  box.innerHTML = "<h3>Llamaste a " + esc(pendiente.tipo) + "</h3>" +
+    '<p class="muted" style="margin:0 0 8px">Por ' + esc(p.nombre || "esta persona") +
+    ". ¿Avisás a la familia?</p>" +
+    '<button class="btn wa" onclick="ir(\'avisar\')">Avisar a la familia</button>' +
+    '<button class="btn sec" onclick="descartarPendiente()">Ahora no</button>';
 }
+function descartarPendiente(){ pendiente = null; pintarPostLlamada(); }
 
 function textoUbicacion(){
-  const p = db.perfiles[actual];
+  var p = perfilActual();
+  if(!p) return "";
   if(conPaciente){
-    if(ubic) return (ubic.texto ? ubic.texto + ". " : "") +
-      "Coordenadas " + ubic.lat.toFixed(5) + ", " + ubic.lon.toFixed(5) +
-      ". Domicilio registrado: " + (p.dom || "no cargado");
-    return "Ubicación no disponible. Domicilio registrado: " + (p.dom || "no cargado");
+    if(ubic){
+      return (ubic.texto ? ubic.texto + ". " : "") +
+        "Coordenadas " + ubic.lat.toFixed(5) + ", " + ubic.lon.toFixed(5) +
+        ". Domicilio registrado: " + (p.dom || "no cargado");
+    }
+    return "Ubicación GPS no disponible. Domicilio registrado: " + (p.dom || "no cargado") +
+      (p.ref ? ". " + p.ref : "");
   }
   return "Domicilio de la persona: " + (p.dom || "no cargado") +
     (p.ref ? ". " + p.ref : "") + ". Quien llama NO está en el lugar.";
 }
 
-function avisarFamilia(emergencia){
-  const p = db.perfiles[actual];
-  if(!p.contactos || !p.contactos.length){
-    if(!emergencia) alert("Este perfil no tiene contactos cargados. Agregalos desde Editar.");
+function mensajeAviso(){
+  var p = perfilActual();
+  if(!p) return "";
+  var enc = pendiente && db.perfiles[pendiente.idx] === p;
+  var cab = enc
+    ? "EMERGENCIA. Se llamó a " + pendiente.tipo + " por " + (p.nombre || "esta persona") + "."
+    : "Aviso por " + (p.nombre || "esta persona") + ".";
+  return cab + "\n" + textoUbicacion() +
+    (conPaciente ? "" : "\nQuien avisa no está en el lugar.");
+}
+function mensajeFalsa(){
+  var p = perfilActual();
+  if(!p) return "";
+  return "Falsa alarma. " + (p.nombre || "La persona") +
+    " está bien. No hace falta hacer nada.";
+}
+function abrirWhatsapp(numero, texto){
+  var n = paraWhatsapp(numero);
+  if(!n){ alert("El número de ese contacto no sirve para WhatsApp. Tiene que llevar el código de área y el de país: 5491122223333.\n\nEditalo desde Perfiles > Editar."); return; }
+  navegar("https://wa.me/" + n + "?text=" + encodeURIComponent(texto));
+}
+function listaContactos(destino, generador, etiqueta){
+  var p = perfilActual();
+  var cont = (p && p.contactos) ? p.contactos : [];
+  var el = $(destino);
+  if(!el) return;
+  if(!cont.length){
+    el.innerHTML = '<p class="muted">Este perfil no tiene contactos cargados. Agregalos desde Perfiles &gt; Editar.</p>';
     return;
   }
-  const cab = emergencia
-    ? "EMERGENCIA. Se pidió ambulancia para " + (p.nombre || "esta persona") + "."
-    : "Aviso por " + (p.nombre || "esta persona") + ".";
-  const cuerpo = cab + "\n" + textoUbicacion() +
-    (conPaciente ? "" : "\nQuien avisa no está en el lugar.");
-  const n = tel(p.contactos[0].telefono);
-  if(!n) return;
-  const url = "https://wa.me/" + n.replace(/^\+/,"") + "?text=" + encodeURIComponent(cuerpo);
-  if(emergencia) window.open(url, "_blank"); else location.href = url;
+  el.innerHTML = "";
+  cont.forEach(function(c){
+    var b = document.createElement("button");
+    b.className = "btn wa";
+    b.textContent = etiqueta + " " + (c.nombre || c.telefono || "contacto");
+    b.onclick = function(){ abrirWhatsapp(c.telefono, generador()); };
+    el.appendChild(b);
+  });
+}
+function pintarAvisar(){
+  var p = perfilActual();
+  $("aTitulo").textContent = "Avisar por " + nombreCorto(p);
+  $("aSub").textContent = "Elegí a quién le mandás el aviso.";
+  listaContactos("aLista", mensajeAviso, "Avisar a");
+}
+function pintarFalsa(){
+  var p = perfilActual();
+  $("fSub").textContent = "Avisar que " + nombreCorto(p) + " está bien y no hace falta hacer nada.";
+  listaContactos("fLista", mensajeFalsa, "Avisar a");
+  pendiente = null;
 }
 
-function falsaAlarma(){
-  const p = db.perfiles[actual];
-  if(!p.contactos || !p.contactos.length) return alert("No hay contactos cargados.");
-  const n = tel(p.contactos[0].telefono);
-  const t = "Falsa alarma. " + (p.nombre || "La persona") + " está bien. No hace falta hacer nada.";
-  location.href = "https://wa.me/" + n.replace(/^\+/,"") + "?text=" + encodeURIComponent(t);
-}
-
-/* ---------- ficha ---------- */
 function fila(k, v){
   if(!v) return "";
-  return '<div class="dt"><b>' + esc(k) + '</b><span>' + esc(v) + '</span></div>';
+  return '<div class="dt"><b>' + esc(k) + '</b><span>' + esc(v) + "</span></div>";
 }
 function pintarDatos(){
-  const p = db.perfiles[actual];
+  var p = perfilActual();
+  if(!p) return;
   $("dTitulo").textContent = p.nombre || "Ficha";
 
-  let d = "";
+  var d = "";
   d += fila("Ubicación", textoUbicacion());
   d += fila("Llamar a", p.tel || "teléfono de quien llama");
   d += fila("Paciente", (p.nombre || "") + (edad(p.nac) ? ", " + edad(p.nac) : ""));
   d += fila("Cobertura", [p.cob, p.plan, p.afi ? "afiliado " + p.afi : ""].filter(Boolean).join(" · "));
   d += fila("DNI", p.dni);
-  if(!conPaciente) d += '<div class="peligro">Quien llama no está en el lugar. La dirección es la registrada, no el GPS de este teléfono.</div>';
+  if(!conPaciente){
+    d += '<div class="peligro">Quien llama no está en el lugar. La dirección es la registrada, no el GPS de este teléfono.</div>';
+  }
   $("dictado").innerHTML = d;
 
-  const m = p.med || {};
-  let f = "";
+  var m = p.med || {};
+  var f = "";
   f += fila("Alergias", m.alergias);
   f += fila("Medicación", m.medic);
   f += fila("Med. crítica", m.criticos);
@@ -533,17 +682,18 @@ function pintarDatos(){
   f += fila("Directivas", m.directivas);
   $("fichaMed").innerHTML = f || '<p class="muted">Ficha médica vacía. Cargala con Editar.</p>';
 
-  $("fichaCon").innerHTML = (p.contactos || []).map(c =>
-    fila(c.nombre || "Contacto", c.telefono)).join("") ||
-    '<p class="muted">Sin contactos.</p>';
+  $("fichaCon").innerHTML = (p.contactos || []).map(function(c){
+    return fila(c.nombre || "Contacto", c.telefono);
+  }).join("") || '<p class="muted">Sin contactos.</p>';
 
   $("dActualizado").textContent = "Última edición: " + fecha(p.edit);
 }
 
 function textoPlano(){
-  const p = db.perfiles[actual];
-  const m = p.med || {};
-  const L = [];
+  var p = perfilActual();
+  if(!p) return "";
+  var m = p.med || {};
+  var L = [];
   L.push(textoUbicacion());
   L.push("Llamar a: " + (p.tel || "-"));
   L.push("Paciente: " + (p.nombre || "-") + (edad(p.nac) ? ", " + edad(p.nac) : ""));
@@ -560,48 +710,51 @@ function textoPlano(){
 }
 function copiarTexto(t, msg){
   if(navigator.clipboard && navigator.clipboard.writeText){
-    navigator.clipboard.writeText(t).then(() => alert(msg),
-      () => prompt("Copialo a mano:", t));
-  } else prompt("Copialo a mano:", t);
+    navigator.clipboard.writeText(t).then(function(){ alert(msg); },
+      function(){ window.prompt("Copialo a mano:", t); });
+  } else { window.prompt("Copialo a mano:", t); }
 }
 function copiarDictado(){ copiarTexto(textoPlano(), "Texto copiado."); }
 function copiarNativa(){
-  const g = actual; actual = 0;
-  const p = db.perfiles[0], m = p.med || {};
-  const t = [
+  var p = db.perfiles[0];
+  if(!p){ alert("Todavía no cargaste tu ficha."); return; }
+  var m = p.med || {};
+  var t = [
     "Alergias: " + (m.alergias || "-"),
     "Medicación: " + (m.medic || "-") + (m.criticos ? " | CRÍTICA: " + m.criticos : ""),
     "Crónicas: " + (m.cronicas || "-"),
     "Implantes: " + (m.disp || "-"),
     "Grupo: " + (m.sangre || "-") + " | Peso: " + (m.peso || "-") + " kg",
-    "Cobertura: " + [p.cob, p.afi].filter(Boolean).join(" ") + " | Emergencias: " + (p.cobtel || "-"),
-    "Médico: " + [m.medico, m.medicotel].filter(Boolean).join(" ")
+    "Cobertura: " + ([p.cob, p.afi].filter(Boolean).join(" ") || "-") +
+      " | Emergencias: " + (p.cobtel || "-"),
+    "Médico: " + ([m.medico, m.medicotel].filter(Boolean).join(" ") || "-")
   ].join("\n");
-  actual = g;
   copiarTexto(t, "Ficha copiada. Pegala en Ajustes > Seguridad y emergencias > Información médica.");
 }
 
-/* ---------- perfiles ---------- */
 function pintarPerfiles(){
-  $("listaPerfiles").innerHTML = db.perfiles.map((p,i) =>
-    '<div class="lista"><span class="n">' + esc(p.nombre || "Sin nombre") +
-    (i === 0 ? " · vos" : "") + '</span>' +
-    '<button onclick="editar(' + i + ')">Editar</button></div>').join("") ||
-    '<p class="muted">Todavía no hay nadie cargado.</p>';
+  $("listaPerfiles").innerHTML = db.perfiles.map(function(p, i){
+    return '<div class="lista"><span class="n">' + esc(p.nombre || "Sin nombre") +
+      (i === 0 ? " · vos" : "") + '</span>' +
+      '<button onclick="editar(' + i + ')">Editar</button></div>';
+  }).join("") || '<p class="muted">Todavía no hay nadie cargado.</p>';
   $("btnNuevo").classList.toggle("hide", db.perfiles.length >= MAX);
 }
 
-/* ---------- edición ---------- */
 function editar(i){
   editIdx = i;
-  const p = (i === null) ? perfilVacio() : db.perfiles[i];
+  var p = (i === null) ? perfilVacio() : db.perfiles[i];
+  if(!p) return;
   $("eTitulo").textContent = (i === null) ? "Nueva persona"
     : (i === 0 ? "Mis datos" : (p.nombre || "Datos"));
   $("btnBorrar").classList.toggle("hide", i === null || i === 0);
 
-  const sel = $("f_cob");
-  sel.innerHTML = COBERTURAS.map(c =>
-    '<option value="' + esc(c[0]) + '">' + esc(c[0] || "Sin cobertura") + "</option>").join("");
+  var sel = $("f_cob");
+  var vals = COBERTURAS.map(function(c){ return c[0]; });
+  if(p.cob && vals.indexOf(p.cob) === -1) vals.push(p.cob);
+  sel.innerHTML = vals.map(function(v){
+    return '<option value="' + esc(v) + '">' + esc(v || "Sin cobertura") + "</option>";
+  }).join("");
 
   $("f_nombre").value = p.nombre || "";
   $("f_dni").value = p.dni || "";
@@ -614,35 +767,39 @@ function editar(i){
   $("f_plan").value = p.plan || "";
   $("f_afi").value = p.afi || "";
 
-  const m = p.med || {};
+  var m = p.med || {};
   ["alergias","medic","criticos","cronicas","disp","sangre","peso",
    "comunica","medico","medicotel","tetanos","donante","directivas"]
-    .forEach(k => { const el = $("m_" + k); if(el) el.value = m[k] || ""; });
+    .forEach(function(k){ var el = $("m_" + k); if(el) el.value = m[k] || ""; });
 
   $("editContactos").innerHTML = "";
-  const cs = (p.contactos && p.contactos.length) ? p.contactos : [{nombre:"",telefono:""}];
-  cs.forEach(c => addContacto(c.nombre, c.telefono));
+  var cs = (p.contactos && p.contactos.length) ? p.contactos : [{nombre:"", telefono:""}];
+  cs.forEach(function(c){ addContacto(c.nombre, c.telefono); });
 
   ir("edit");
 }
 function addContacto(n, t){
-  const d = document.createElement("div");
+  var d = document.createElement("div");
   d.className = "contacto";
-  d.innerHTML = '<input placeholder="Nombre" value="' + esc(n||"") + '">' +
-                '<input placeholder="5491122223333" inputmode="tel" value="' + esc(t||"") + '">' +
-                '<button type="button">✕</button>';
-  d.querySelector("button").onclick = () => d.remove();
+  d.innerHTML = '<input placeholder="Nombre" value="' + esc(n || "") + '">' +
+                '<input placeholder="5491122223333" inputmode="tel" value="' + esc(t || "") + '">' +
+                '<button type="button" aria-label="Quitar">✕</button>';
+  d.querySelector("button").onclick = function(){ d.remove(); };
   $("editContactos").appendChild(d);
 }
 function autoTelCobertura(){
-  const v = $("f_cob").value;
-  const c = COBERTURAS.find(x => x[0] === v);
-  if(c && c[1]) $("f_cobtel").value = c[1];
+  var v = $("f_cob").value;
+  for(var i = 0; i < COBERTURAS.length; i++){
+    if(COBERTURAS[i][0] === v && COBERTURAS[i][1]){
+      $("f_cobtel").value = COBERTURAS[i][1];
+      return;
+    }
+  }
 }
 function guardar(){
-  const nom = $("f_nombre").value.trim();
-  if(!nom) return alert("Falta el nombre.");
-  const p = (editIdx === null) ? perfilVacio() : db.perfiles[editIdx];
+  var nom = $("f_nombre").value.trim();
+  if(!nom){ alert("Falta el nombre."); return; }
+  var p = (editIdx === null) ? perfilVacio() : db.perfiles[editIdx];
 
   p.nombre = nom;
   p.dni = $("f_dni").value.trim();
@@ -658,34 +815,46 @@ function guardar(){
   p.med = p.med || {};
   ["alergias","medic","criticos","cronicas","disp","sangre","peso",
    "comunica","medico","medicotel","tetanos","donante","directivas"]
-    .forEach(k => { const el = $("m_" + k); if(el) p.med[k] = el.value.trim(); });
+    .forEach(function(k){ var el = $("m_" + k); if(el) p.med[k] = el.value.trim(); });
 
   p.contactos = [];
-  document.querySelectorAll("#editContactos .contacto").forEach(d => {
-    const ins = d.querySelectorAll("input");
-    const n = ins[0].value.trim(), t = ins[1].value.trim();
-    if(n || t) p.contactos.push({ nombre:n, telefono:t });
-  });
+  var nodos = document.querySelectorAll("#editContactos .contacto");
+  for(var i = 0; i < nodos.length; i++){
+    var ins = nodos[i].querySelectorAll("input");
+    var cn = ins[0].value.trim(), ct = ins[1].value.trim();
+    if(cn || ct) p.contactos.push({ nombre:cn, telefono:ct });
+  }
 
-  const raros = p.contactos.filter(c => c.telefono && !tel(c.telefono).replace(/^\+/,"").startsWith("54"));
-  if(raros.length && !confirm("Hay teléfonos que no empiezan con 54. WhatsApp puede no abrir. ¿Guardo igual?")) return;
+  var malos = p.contactos.filter(function(c){
+    return c.telefono && !paraWhatsapp(c.telefono);
+  }).map(function(c){ return c.nombre || c.telefono; });
+  if(malos.length){
+    if(!confirm("Estos contactos tienen un número que WhatsApp no va a poder abrir: " +
+      malos.join(", ") + ".\n\nTiene que llevar código de área, sin el 15: 1122223333.\n\n¿Guardo igual?")) return;
+  }
+
+  var propio = soloDigitos(p.tel);
+  var choque = p.contactos.filter(function(c){
+    return propio && soloDigitos(c.telefono) === propio;
+  });
+  if(choque.length){
+    if(!confirm("El teléfono de la persona figura también como contacto a avisar. El aviso se mandaría a ella misma.\n\n¿Guardo igual?")) return;
+  }
 
   p.edit = new Date().toISOString();
 
   if(editIdx === null){
-    if(db.perfiles.length >= MAX) return alert("Llegaste al límite de " + MAX + " personas.");
+    if(db.perfiles.length >= MAX){ alert("Llegaste al límite de " + MAX + " personas."); return; }
     db.perfiles.push(p);
     actual = db.perfiles.length - 1;
   }
   persistir();
   ir("home");
 }
-function cancelarEdicion(){
-  ir(db.perfiles.length ? "home" : "perfiles");
-}
+function cancelarEdicion(){ ir(db.perfiles.length ? "home" : "perfiles"); }
 function borrarPerfil(){
   if(editIdx === null || editIdx === 0) return;
-  const p = db.perfiles[editIdx];
+  var p = db.perfiles[editIdx];
   if(!confirm("¿Borrar a " + (p.nombre || "esta persona") + "? No se puede deshacer.")) return;
   db.perfiles.splice(editIdx, 1);
   if(actual >= db.perfiles.length) actual = 0;
@@ -693,26 +862,29 @@ function borrarPerfil(){
   ir("perfiles");
 }
 
-/* ---------- respaldo ---------- */
 function exportar(){
-  const blob = new Blob([JSON.stringify(db, null, 2)], { type:"application/json" });
-  const a = document.createElement("a");
-  a.href = URL.createObjectURL(blob);
-  a.download = "ayuda-" + new Date().toISOString().slice(0,10) + ".json";
-  document.body.appendChild(a); a.click(); a.remove();
-  setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+  try{
+    var blob = new Blob([JSON.stringify(db, null, 2)], { type:"application/json" });
+    var a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "ayuda-" + new Date().toISOString().slice(0,10) + ".json";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(function(){ URL.revokeObjectURL(a.href); }, 4000);
+  }catch(e){ alert("No se pudo generar la copia."); }
 }
 function importar(inp){
-  const f = inp.files && inp.files[0];
+  var f = inp.files && inp.files[0];
   if(!f) return;
-  const r = new FileReader();
-  r.onload = () => {
+  var r = new FileReader();
+  r.onload = function(){
     try{
-      const j = JSON.parse(r.result);
-      if(!j || !Array.isArray(j.perfiles)) throw 0;
+      var j = JSON.parse(r.result);
+      if(!j || !(j.perfiles instanceof Array)) throw new Error("formato");
       if(!confirm("Esto reemplaza los " + db.perfiles.length +
         " perfiles de este teléfono por los " + j.perfiles.length +
-        " del archivo. ¿Sigo?")) return;
+        " del archivo.\n\n¿Sigo?")) return;
       db = { v:2, perfiles: j.perfiles.slice(0, MAX) };
       actual = 0;
       persistir();
@@ -723,21 +895,25 @@ function importar(inp){
   inp.value = "";
 }
 
-/* ---------- arranque ---------- */
 function arrancar(){
   cargar();
-  actual = 0;          // siempre vuelve a "Yo"
+  actual = 0;
   conPaciente = true;
-  if(!db.perfiles.length){ editar(null); }
-  else { ir("home"); pedirUbicacion(); }
+  if(!db.perfiles.length){ editar(null); } else { ir("home"); }
 }
-document.addEventListener("visibilitychange", () => {
-  if(document.visibilityState === "visible" && !$("v-home").classList.contains("hide")){
-    actual = 0; conPaciente = true; pintarHome(); pedirUbicacion();
+document.addEventListener("visibilitychange", function(){
+  if(document.visibilityState === "hidden"){ salioEn = Date.now(); return; }
+  if($("v-home").classList.contains("hide")) return;
+  if(!pendiente && salioEn && (Date.now() - salioEn) > MS_RESET){
+    actual = 0;
+    conPaciente = true;
   }
+  pintarHome();
 });
 if("serviceWorker" in navigator){
-  window.addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));
+  window.addEventListener("load", function(){
+    navigator.serviceWorker.register("sw.js").catch(function(){});
+  });
 }
 arrancar();
 </script>

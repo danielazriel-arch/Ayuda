@@ -1,4 +1,4 @@
-const CACHE = "ayuda-v2";
+const CACHE = "ayuda-v3";
 const ARCHIVOS = ["./", "./index.html", "./manifest.json"];
 
 self.addEventListener("install", e => {
@@ -14,14 +14,15 @@ self.addEventListener("activate", e => {
 
 self.addEventListener("fetch", e => {
   const url = new URL(e.request.url);
-  // Nominatim siempre va a la red: no tiene sentido cachear una ubicación vieja.
   if (url.hostname.indexOf("nominatim") !== -1) return;
   if (e.request.method !== "GET") return;
+  if (url.origin !== self.location.origin) return;
 
+  // Red primero: si hay conexion, siempre se sirve la version publicada.
   e.respondWith(
     fetch(e.request)
       .then(r => {
-        if (r && r.status === 200 && url.origin === self.location.origin) {
+        if (r && r.status === 200) {
           const copia = r.clone();
           caches.open(CACHE).then(c => c.put(e.request, copia));
         }
