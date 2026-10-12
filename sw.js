@@ -1,4 +1,4 @@
-const CACHE = "ayuda-v4-1";
+const CACHE = "ayuda-v4-2";
 const ARCHIVOS = ["./", "./index.html", "./manifest.json", "./icon-192.png", "./icon-512.png"];
 
 self.addEventListener("install", e => {
