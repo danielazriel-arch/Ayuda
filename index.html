@@ -169,7 +169,7 @@
   </a>
 
   <button class="b-falsa big" onclick="ir('falsa')">Falsa alarma — avisar que ya está</button>
-  <div class="ver">v4</div>
+  <div class="ver">v4.1</div>
 </section>
 
 <section id="v-avisar" class="hide">
@@ -349,6 +349,7 @@
 "use strict";
 
 var KEY = "ayuda_v2";
+var HC_URL = "https://claude.ai/artifact/MiWNHkrfNHXiRZSJZ3nX1k";
 var MAX = 10;
 var MESES_AVISO = 6;
 var MS_RESET = 15 * 60 * 1000;
@@ -504,7 +505,7 @@ function pintarHome(){
 
   $("lDat").textContent = "Ficha de " + nombreCorto(p);
   var hc = $("btnHC");
-  if(p.hc){ hc.href = p.hc; hc.classList.remove("hide"); } else { hc.classList.add("hide"); hc.removeAttribute("href"); }
+  hc.href = p.hc || HC_URL; hc.classList.remove("hide");
 
   var av = $("avisoVieja");
   if(meses(p.edit) > MESES_AVISO){
