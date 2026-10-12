@@ -6,6 +6,8 @@
 <meta name="theme-color" content="#12141a">
 <title>Ayuda</title>
 <link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
 <style>
   :root{
     --bg:#12141a; --panel:#1c1f28; --panel2:#242835; --line:#333949;
@@ -101,6 +103,13 @@
   .lista .n{flex:1; font-weight:600}
   .lista button{background:var(--panel2); border:1px solid var(--line); color:var(--tx);
     border-radius:9px; padding:8px 12px; font-size:14px; font-weight:600}
+  .dict{padding:10px 0; border-bottom:1px solid var(--line)}
+  .dict:last-child{border-bottom:0}
+  .dict .k{font-size:12px; text-transform:uppercase; letter-spacing:.08em; color:var(--tx2); font-weight:700}
+  .dict .v{font-size:21px; font-weight:700; line-height:1.25; word-break:break-word; margin-top:2px}
+  .dict .v.xl{font-size:28px; letter-spacing:.5px; font-variant-numeric:tabular-nums}
+  .dict .v.sm{font-size:17px; font-weight:600}
+  .b-hc{background:var(--panel2); border:1px solid var(--line); text-decoration:none}
   .ver{text-align:center; color:var(--tx3); font-size:12px; margin-top:18px}
   @media (prefers-reduced-motion:no-preference){ .chip,.big{transition:transform .08s ease} }
   .big:active{transform:scale(.985)}
@@ -154,8 +163,13 @@
     <span class="l2" id="lDat">Ficha para dictar al operador</span>
   </button>
 
+  <a class="big b-hc hide" id="btnHC" target="_blank" rel="noopener">
+    <span class="l1">HISTORIA CLÍNICA</span>
+    <span class="l2">Abre Mi Salud en esta persona</span>
+  </a>
+
   <button class="b-falsa big" onclick="ir('falsa')">Falsa alarma — avisar que ya está</button>
-  <div class="ver">v3</div>
+  <div class="ver">v4</div>
 </section>
 
 <section id="v-avisar" class="hide">
@@ -250,6 +264,8 @@
     <h2 style="margin-top:0">Cobertura</h2>
     <div class="row"><label for="f_cob">Prepaga u obra social</label>
       <select id="f_cob" onchange="autoTelCobertura()"></select></div>
+    <div class="row hide" id="wrapOtra"><label for="f_cobotra">Nombre de la prepaga u obra social</label>
+      <input id="f_cobotra" placeholder="Escribí el nombre como figura en la credencial"></div>
     <div class="row"><label for="f_cobtel">Teléfono de emergencias</label>
       <input id="f_cobtel" type="tel" inputmode="tel"></div>
     <div class="grid2">
@@ -257,6 +273,13 @@
       <div class="row"><label for="f_afi">N° de afiliado</label><input id="f_afi"></div>
     </div>
     <p class="tiny">Verificá el número contra el dorso de la credencial: cambia según plan y zona.</p>
+  </div>
+
+  <div class="card">
+    <h2 style="margin-top:0">Historia clínica</h2>
+    <div class="row"><label for="f_hc">Link a Mi Salud</label>
+      <input id="f_hc" inputmode="url" placeholder="https://claude.ai/artifact/..."></div>
+    <p class="tiny">Se completa solo al importar la copia que genera Mi Salud. Abre solo en un teléfono con la sesión de Claude iniciada.</p>
   </div>
 
   <div class="card">
@@ -334,7 +357,7 @@ var MS_PENDIENTE = 30 * 60 * 1000;
 var COBERTURAS = [
   ["", ""],
   ["Swiss Medical", "08007777800"],
-  ["Medife", "08003330075"],
+  ["Medifé", "08003330075"],
   ["OSDE", "08108887788"],
   ["PAMI", "139"],
   ["Vittal", "08103338888"],
@@ -383,6 +406,7 @@ function cargar(){
   if(!db || typeof db !== "object") db = { v:2, perfiles:[] };
   if(!(db.perfiles instanceof Array)) db.perfiles = [];
   db.perfiles = db.perfiles.filter(function(p){ return p && typeof p === "object"; });
+  db.perfiles.forEach(function(p){ if(p.cob === "Medife") p.cob = "Medifé"; });
 }
 function persistir(){
   try{ localStorage.setItem(KEY, JSON.stringify(db)); }
@@ -390,7 +414,7 @@ function persistir(){
 }
 function perfilVacio(){
   return { nombre:"", dni:"", nac:"", tel:"", dom:"", ref:"",
-    cob:"", cobtel:"", plan:"", afi:"", contactos:[],
+    cob:"", cobtel:"", plan:"", afi:"", hc:"", contactos:[],
     med:{ alergias:"", medic:"", criticos:"", cronicas:"", disp:"",
           sangre:"", peso:"", comunica:"", medico:"", medicotel:"",
           tetanos:"", donante:"", directivas:"" },
@@ -479,6 +503,8 @@ function pintarHome(){
     : "Sin contactos cargados";
 
   $("lDat").textContent = "Ficha de " + nombreCorto(p);
+  var hc = $("btnHC");
+  if(p.hc){ hc.href = p.hc; hc.classList.remove("hide"); } else { hc.classList.add("hide"); hc.removeAttribute("href"); }
 
   var av = $("avisoVieja");
   if(meses(p.edit) > MESES_AVISO){
@@ -646,6 +672,10 @@ function pintarFalsa(){
   pendiente = null;
 }
 
+function dict(k, v, cls){
+  if(!v) return "";
+  return '<div class="dict"><div class="k">' + esc(k) + '</div><div class="v' + (cls ? " " + cls : "") + '">' + esc(v) + "</div></div>";
+}
 function fila(k, v){
   if(!v) return "";
   return '<div class="dt"><b>' + esc(k) + '</b><span>' + esc(v) + "</span></div>";
@@ -656,11 +686,18 @@ function pintarDatos(){
   $("dTitulo").textContent = p.nombre || "Ficha";
 
   var d = "";
-  d += fila("Ubicación", textoUbicacion());
-  d += fila("Llamar a", p.tel || "teléfono de quien llama");
-  d += fila("Paciente", (p.nombre || "") + (edad(p.nac) ? ", " + edad(p.nac) : ""));
-  d += fila("Cobertura", [p.cob, p.plan, p.afi ? "afiliado " + p.afi : ""].filter(Boolean).join(" · "));
-  d += fila("DNI", p.dni);
+  d += dict("1 · Dónde", textoUbicacion(), "sm");
+  d += dict("2 · Teléfono de contacto", p.tel || "dictá el número desde el que llamás");
+  d += dict("3 · Paciente", (p.nombre || "") + (edad(p.nac) ? ", " + edad(p.nac) : ""));
+  d += dict("4 · Cobertura", p.cob || "sin cobertura cargada");
+  d += dict("Plan", p.plan);
+  d += dict("N° de afiliado", p.afi || "no cargado", "xl");
+  d += dict("Teléfono de emergencias de la cobertura", p.cobtel);
+  d += dict("5 · DNI", p.dni, "xl");
+  var mm = p.med || {};
+  d += dict("Alergias", mm.alergias);
+  d += dict("Medicación crítica", mm.criticos);
+  d += dict("Patologías crónicas", mm.cronicas, "sm");
   if(!conPaciente){
     d += '<div class="peligro">Quien llama no está en el lugar. La dirección es la registrada, no el GPS de este teléfono.</div>';
   }
@@ -695,9 +732,11 @@ function textoPlano(){
   var m = p.med || {};
   var L = [];
   L.push(textoUbicacion());
-  L.push("Llamar a: " + (p.tel || "-"));
+  L.push("Teléfono de contacto: " + (p.tel || "-"));
   L.push("Paciente: " + (p.nombre || "-") + (edad(p.nac) ? ", " + edad(p.nac) : ""));
-  L.push("Cobertura: " + ([p.cob, p.plan, p.afi].filter(Boolean).join(" ") || "-"));
+  L.push("Cobertura: " + ([p.cob, p.plan].filter(Boolean).join(" ") || "-"));
+  L.push("N° de afiliado: " + (p.afi || "-"));
+  if(p.cobtel) L.push("Emergencias cobertura: " + p.cobtel);
   L.push("DNI: " + (p.dni || "-"));
   if(m.alergias) L.push("Alergias: " + m.alergias);
   if(m.medic) L.push("Medicación: " + m.medic);
@@ -725,7 +764,7 @@ function copiarNativa(){
     "Crónicas: " + (m.cronicas || "-"),
     "Implantes: " + (m.disp || "-"),
     "Grupo: " + (m.sangre || "-") + " | Peso: " + (m.peso || "-") + " kg",
-    "Cobertura: " + ([p.cob, p.afi].filter(Boolean).join(" ") || "-") +
+    "Cobertura: " + ([p.cob, p.plan].filter(Boolean).join(" ") || "-") + " | Afiliado: " + (p.afi || "-") +
       " | Emergencias: " + (p.cobtel || "-"),
     "Médico: " + ([m.medico, m.medicotel].filter(Boolean).join(" ") || "-")
   ].join("\n");
@@ -751,10 +790,10 @@ function editar(i){
 
   var sel = $("f_cob");
   var vals = COBERTURAS.map(function(c){ return c[0]; });
-  if(p.cob && vals.indexOf(p.cob) === -1) vals.push(p.cob);
   sel.innerHTML = vals.map(function(v){
     return '<option value="' + esc(v) + '">' + esc(v || "Sin cobertura") + "</option>";
   }).join("");
+  var esOtra = p.cob && vals.indexOf(p.cob) === -1;
 
   $("f_nombre").value = p.nombre || "";
   $("f_dni").value = p.dni || "";
@@ -762,7 +801,10 @@ function editar(i){
   $("f_tel").value = p.tel || "";
   $("f_dom").value = p.dom || "";
   $("f_ref").value = p.ref || "";
-  sel.value = p.cob || "";
+  sel.value = esOtra ? "Otra" : (p.cob || "");
+  $("f_cobotra").value = esOtra ? p.cob : "";
+  $("wrapOtra").classList.toggle("hide", sel.value !== "Otra");
+  $("f_hc").value = p.hc || "";
   $("f_cobtel").value = p.cobtel || "";
   $("f_plan").value = p.plan || "";
   $("f_afi").value = p.afi || "";
@@ -789,6 +831,8 @@ function addContacto(n, t){
 }
 function autoTelCobertura(){
   var v = $("f_cob").value;
+  $("wrapOtra").classList.toggle("hide", v !== "Otra");
+  if(v === "Otra") setTimeout(function(){ $("f_cobotra").focus(); }, 0);
   for(var i = 0; i < COBERTURAS.length; i++){
     if(COBERTURAS[i][0] === v && COBERTURAS[i][1]){
       $("f_cobtel").value = COBERTURAS[i][1];
@@ -807,7 +851,9 @@ function guardar(){
   p.tel = $("f_tel").value.trim();
   p.dom = $("f_dom").value.trim();
   p.ref = $("f_ref").value.trim();
-  p.cob = $("f_cob").value;
+  p.cob = $("f_cob").value === "Otra" ? $("f_cobotra").value.trim() : $("f_cob").value;
+  if($("f_cob").value === "Otra" && !p.cob){ alert("Escribí el nombre de la prepaga u obra social."); return; }
+  p.hc = $("f_hc").value.trim();
   p.cobtel = $("f_cobtel").value.trim();
   p.plan = $("f_plan").value.trim();
   p.afi = $("f_afi").value.trim();
